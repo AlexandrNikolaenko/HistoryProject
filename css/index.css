@@ -1,0 +1,26 @@
+:root{
+    --text-shadow: 0 4px 4px rgba(0, 0, 0, 0.45);
+}
+
+.first-view{
+    background: url(../img/main-fon.png) no-repeat top right;
+    padding-top: 153px;
+}
+
+.first-sec{
+    display: flex;
+    padding-top: 153px;
+    padding-bottom: 489px;
+    row-gap: 64px;
+    flex-direction: column;
+}
+
+.title{
+    text-shadow: var(--text-shadow);
+}
+
+.first-sec>p{
+    font-size: 40px;
+    font-weight: medium;
+    text-shadow: var(--text-shadow);
+}
