@@ -1,6 +1,3 @@
-// var list.setAttribute('open', 'false');
-var menu_item = document.getElementsByClassName('.menu_item')
-
 function elt(tag, atributes, ...children){
     let elem = document.createElement(tag);
     if (atributes){
@@ -20,7 +17,7 @@ function elt(tag, atributes, ...children){
 }
 
 
-class MenuCreator{
+class Header{
     constructor(){
         this.universities = {'технические': ['Бонч', 'Техноложка', 'Корабелка', 'ГУАП', 'ГАСУ', 'Путей сообщения', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
         'военные': ['Буденова', 'Можайка'],
@@ -36,13 +33,18 @@ class MenuCreator{
             let elem = elt('li', {'class': 'menu_item'},
             elt('p', {'open': 'false'}, group));
             elem.addEventListener('click', function () {
-                let univWrap = document.createElement('ul');
-                univWrap.className = 'vuz-box';
-                univWrap.style.position = 'absolute';
-                for (let vuz of this.universities[group]){
-                    univWrap.appendChild(elt('li', {class: '.vuz-name'},
-                    elt('p', null, vuz)));
+                if (elem.childNode.length == 1){
+                    let univWrap = document.createElement('ul');
+                    univWrap.className = 'vuz-box';
+                    univWrap.style.position = 'absolute';
+                    for (let vuz of this.universities[group]){
+                        univWrap.appendChild(elt('li', {class: '.vuz-name'},
+                        elt('p', null, vuz)));
+                    }
+                }else {
+
                 }
+                
             });
             this.list.appendChild(elem);
         }
@@ -52,18 +54,29 @@ class MenuCreator{
         if (this.list.getAttribute('open') == "true") {
             this.list.style.display = 'none';
             this.list.setAttribute('open', "false");
+            document.getElementById('menu-lines').style.transform = 'rotate(0)';
             return;
         }
+        document.getElementById('menu-lines').style.transform = 'rotate(180deg)';
         this.list.style.display = 'block';
         this.list.setAttribute('open', "true");
     }
 
-    openList(){
-        
+    backFon(){
+        window.addEventListener('scroll', function(){
+            let position = this.window.scrollY;
+            let newVal;
+            if (position < 248 && position > 124) newVal = 0.74 * (Math.cos((Math.PI / 2) * (( 248 - position) / 124)));
+            else if (position >= 248) newVal = 0.74;
+            else newVal = 0;
+            document.documentElement.style.setProperty('--header-fon', `rgba(25, 25, 25, ${newVal})`);
+        });
     }
 }
+        
 
-let menu_creator = new MenuCreator;
-document.getElementsByTagName('body')[0].onload = function() {menu_creator.createMenu(); console.log('load')};
-document.getElementById('menu-lines').addEventListener('click', function() {menu_creator.openMenu()});
+let header = new Header;
+header.backFon();
+document.getElementsByTagName('body')[0].onload = function() {header.createMenu(); console.log('load')};
+document.getElementById('menu-lines').addEventListener('click', function() {header.openMenu()});
 

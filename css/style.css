@@ -51,7 +51,7 @@ header{
 
 .navigation{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     column-gap: 65px;
 }
 
@@ -74,6 +74,14 @@ header{
     width: 121px;
     text-align: center;
 }
+
+#menu-lines{
+    transition: 0.3s all;
+}
+
+/* #menu-lines:hover{
+    transform: rotate(180deg);
+} */
 
 .vuz-name{
     color: var(--white_color);
