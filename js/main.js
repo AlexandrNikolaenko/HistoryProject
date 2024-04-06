@@ -1,3 +1,5 @@
+var conditions = {openElement: null};
+
 function elt(tag, atributes, ...children){
     let elem = document.createElement(tag);
     if (atributes){
@@ -12,39 +14,45 @@ function elt(tag, atributes, ...children){
             elem.appendChild(child);
         }
     }
-    console.log('elem has created');
     return elem;
 }
 
 
 class Header{
     constructor(){
-        this.universities = {'технические': ['Бонч', 'Техноложка', 'Корабелка', 'ГУАП', 'ГАСУ', 'Путей сообщения', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
-        'военные': ['Буденова', 'Можайка'],
-        'гуманитарные': ['ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
-        'медицинские': ['Первый мед', 'Мечникова']};
+        this.universities = [[ 'Технические', 'Бонч', 'Техноложка', 'Корабелка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
+        ['Военные', 'Буденова', 'Можайка'],
+        ['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
+        ['Медицинские', 'Первый мед', 'Мечникова']];
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
     }
 
     createMenu(){
-        for (let group of Object.keys(this.universities)){
+        for (let ever of this.universities){
+            let group = ever[0];
             let elem = elt('li', {'class': 'menu_item'},
-            elt('p', {'open': 'false'}, group));
+            elt('p', null, group));
             elem.addEventListener('click', function () {
-                if (elem.childNode.length == 1){
+                if (conditions.openElement && conditions.openElement != elem){
+                    conditions.openElement.removeChild(conditions.openElement.childNodes[1]);
+                    conditions.openElement = null;
+                }
+                if (elem.childNodes.length == 1){
                     let univWrap = document.createElement('ul');
                     univWrap.className = 'vuz-box';
                     univWrap.style.position = 'absolute';
-                    for (let vuz of this.universities[group]){
-                        univWrap.appendChild(elt('li', {class: '.vuz-name'},
-                        elt('p', null, vuz)));
+                    for (let i = 1; i < ever.length; i++){
+                        univWrap.appendChild(elt('li', {class: 'vuz-name'},
+                        elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
                     }
+                    elem.appendChild(univWrap);
+                    conditions.openElement = elem;
                 }else {
-
+                    elem.removeChild(elem.childNodes[1]);
+                    conditions.openElement = null;
                 }
-                
             });
             this.list.appendChild(elem);
         }
@@ -73,10 +81,70 @@ class Header{
         });
     }
 }
+
+class Animation{
+    constructor(animatedObject){
+        this.endPlace = {x: animatedObject.pageX, y: animatedObject.pageY};
+        this.size = {x: animatedObject.style.width, y: animatedObject.style.height};
+        this.position = animatedObject.style.position
+    }
+
+    process(startPosition, action, endPosition, direct){
+        animatedObject.style.position = 'absolute';
+        animatedObject.style.top = startPosition.y;
+        animatedObject.style.left = startPosition.x;
+        let go = setInterval(function() {
+            if ({x: animatedObject.style.left, y: animatedObject.style.top} == endPosition){
+                clearInterval(go);
+            }
+            action.x(animatedObject.style[direct]);
+            action.y(animatedObject.style.top);
+        }, 8.5);
+    }
+
+    leftMove(timer){
+        let delta = 
+        this.process({x: `-${this.size.x}`, y: `${this.endPlace.y}`}, {
+            x: function(position){
+                position = `${Number(position) + delta}px`;
+            },
+            y: function(position){
+                position = position;
+            }
+        }, {x: this.endPlace.x, y: this.endPlace.y}, 'left')
+        animatedObject.style.position = 'static';
+    }
+
+    rightMove(){
+
+    }
+
+    topMove(){
+
+    }
+
+    leftArc(){
+
+    }
+
+    rightArc(){
+
+    }
+
+    opacityLeftMove(){
+
+    }
+
+    opacityRightMove(){
+
+    }
+}
         
 
 let header = new Header;
 header.backFon();
-document.getElementsByTagName('body')[0].onload = function() {header.createMenu(); console.log('load')};
-document.getElementById('menu-lines').addEventListener('click', function() {header.openMenu()});
+document.getElementsByTagName('body')[0].onload = function() {header.createMenu();};
+document.getElementById('menu-lines').addEventListener('click', function() {header.openMenu();});
+console.log(document.getElementById('menu-lines').left);
+
 

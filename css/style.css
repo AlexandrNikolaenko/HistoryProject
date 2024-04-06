@@ -9,6 +9,27 @@
     --text-shadow: 0 4px 4px rgba(0, 0, 0, 0.45);
 }
 
+/* Работает в Firefox */
+/* * {
+    scrollbar-width: 12px;
+    scrollbar-color: var(--dark_color) transparent;
+} */
+
+/* Работает в Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+    width: 8px;
+    right: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--dark_color);
+    border-radius: 4px;
+}
+
 body{
     background-color: var(--main_color);
 }
@@ -63,8 +84,8 @@ header{
 
 #menu-list{
     position: absolute;
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 4px;
+    /* overflow: hidden; */
 }
 
 .menu_item{
@@ -79,16 +100,22 @@ header{
     transition: 0.3s all;
 }
 
-/* #menu-lines:hover{
-    transform: rotate(180deg);
-} */
+.vuz-box{
+    transform: translateY(-127px);
+    transform: translateX(100%);
+}
 
 .vuz-name{
     color: var(--white_color);
     background-color: var(--disactive-menu);
-    padding: 6px 0;
     width: 121px;
-    text-align: center;
+    text-align: left;
+}
+
+.vuz-name>a>div{
+    width: 100%;
+    padding: 6px 0;
+    padding-left: 6px;
 }
 
 .menu_item:hover, .vuz-name:hover{
