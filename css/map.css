@@ -1,0 +1,30 @@
+.info{
+    background: url(../img/map-fon.png) no-repeat top right;
+    background-attachment: local;
+    padding-top: 141px;
+}
+
+.wrapper>h3, .wrapper>p{
+    font-size: 24px;
+    font-weight: medium;
+}
+
+h3{
+    color: var(--white_color);
+    margin-bottom: 12px
+}
+
+.choise{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.choise-item{
+    margin: 0 auto;
+    color: var(--white_color);
+    font-size: 36px;
+}
+
+.show-choise{
+    margin-top: 40px;
+}
