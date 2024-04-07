@@ -1,5 +1,7 @@
+// ячейка хранения стостояний элементов
 var conditions = {openElement: null};
 
+// функция создания новых элементов
 function elt(tag, atributes, ...children){
     let elem = document.createElement(tag);
     if (atributes){
@@ -17,7 +19,7 @@ function elt(tag, atributes, ...children){
     return elem;
 }
 
-
+// представляет собой весь функционал хедера
 class Header{
     constructor(){
         this.universities = [[ 'Технические', 'Бонч', 'Техноложка', 'Корабелка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
@@ -29,6 +31,8 @@ class Header{
         this.menu_item = document.getElementsByClassName('.menu_item');
     }
 
+
+    // при загрузке страницы создаём меню с категориями универов
     createMenu(){
         for (let ever of this.universities){
             let group = ever[0];
@@ -44,8 +48,13 @@ class Header{
                     univWrap.className = 'vuz-box';
                     univWrap.style.position = 'absolute';
                     for (let i = 1; i < ever.length; i++){
-                        univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                        elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
+                        if (document.getElementsByTagName('body')[0].hasAttribute('index')){
+                            univWrap.appendChild(elt('li', {class: 'vuz-name'},
+                            elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
+                        }else{
+                            univWrap.appendChild(elt('li', {class: 'vuz-name'},
+                            elt('a', {'href': `../${ever[i]}.html`}, elt('div', null, ever[i]))));
+                        }
                     }
                     elem.appendChild(univWrap);
                     conditions.openElement = elem;
@@ -57,7 +66,7 @@ class Header{
             this.list.appendChild(elem);
         }
     }
-
+    // открываем меню по клику
     openMenu(){
         if (this.list.getAttribute('open') == "true") {
             this.list.style.display = 'none';
@@ -70,6 +79,7 @@ class Header{
         this.list.setAttribute('open', "true");
     }
 
+    // изменяем фон хедера по скроллу
     backFon(){
         window.addEventListener('scroll', function(){
             let position = this.window.scrollY;
@@ -90,29 +100,11 @@ class Animation{
     }
 
     process(startPosition, action, endPosition, direct){
-        animatedObject.style.position = 'absolute';
-        animatedObject.style.top = startPosition.y;
-        animatedObject.style.left = startPosition.x;
-        let go = setInterval(function() {
-            if ({x: animatedObject.style.left, y: animatedObject.style.top} == endPosition){
-                clearInterval(go);
-            }
-            action.x(animatedObject.style[direct]);
-            action.y(animatedObject.style.top);
-        }, 8.5);
+        
     }
 
     leftMove(timer){
-        let delta = 
-        this.process({x: `-${this.size.x}`, y: `${this.endPlace.y}`}, {
-            x: function(position){
-                position = `${Number(position) + delta}px`;
-            },
-            y: function(position){
-                position = position;
-            }
-        }, {x: this.endPlace.x, y: this.endPlace.y}, 'left')
-        animatedObject.style.position = 'static';
+
     }
 
     rightMove(){
@@ -145,6 +137,5 @@ let header = new Header;
 header.backFon();
 document.getElementsByTagName('body')[0].onload = function() {header.createMenu();};
 document.getElementById('menu-lines').addEventListener('click', function() {header.openMenu();});
-console.log(document.getElementById('menu-lines').left);
 
 

@@ -9,7 +9,6 @@
 
 .first-sec{
     display: flex;
-    padding-top: 153px;
     padding-bottom: 489px;
     row-gap: 64px;
     flex-direction: column;
