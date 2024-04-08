@@ -81,6 +81,15 @@ header{
     color: var(--white_color);
     font-size: 20px;
     text-shadow: var(--text-shadow);
+    background-image: linear-gradient(currentColor, currentColor);
+    padding-bottom: 3px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+.header_text:hover{
+    background-size: 100% 2px;
 }
 
 #menu-list{
