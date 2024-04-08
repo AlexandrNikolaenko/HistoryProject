@@ -32,6 +32,7 @@
 
 body{
     background-color: var(--main_color);
+    overflow-x: hidden;
 }
 
 h1{

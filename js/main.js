@@ -1,4 +1,4 @@
-// ячейка хранения стостояний элементов
+// ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
 
 // функция создания новых элементов
@@ -92,27 +92,110 @@ class Header{
     }
 }
 
-class Animation{
+class newAnimation{
     constructor(animatedObject){
-        this.endPlace = {x: animatedObject.pageX, y: animatedObject.pageY};
-        this.size = {x: animatedObject.style.width, y: animatedObject.style.height};
-        this.position = animatedObject.style.position
+        this.animatedObject = animatedObject;
+        this.endPlace = {left: this.animatedObject.getBoundingClientRect().left, right: this.animatedObject.getBoundingClientRect().right, top: this.animatedObject.getBoundingClientRect().top};
+        this.size = {x: Number(getComputedStyle(animatedObject).width.slice(0, -2)), y: Number(getComputedStyle(animatedObject).height.slice(0, -2))};
+        this.position = getComputedStyle(animatedObject).position;
+        this.replace = elt('div', {style: `width: ${this.size.x}px; height: ${this.size.y}px`});
     }
 
-    process(startPosition, action, endPosition, direct){
-        
+    opacityStartPosition(){
+        this.animatedObject.style.position = 'absolute';
+        this.animatedObject.before(this.replace);
+        this.animatedObject.style.opacity = '0';
     }
 
-    leftMove(timer){
+    horizontalStartPosition(dir){
+        this.animatedObject.style.position = 'absolute';
+        this.animatedObject.before(this.replace);
+        this.animatedObject.style.top = this.endPlace.top;
+        if (dir == 'right'){
+            this.animatedObject.style.right = `${-this.size.x}px`;
+        }else{
+            this.animatedObject.style.left = `${-this.size.x}px`;
+        }
+    }
 
+    moveFunction(x){
+        let y = x * x * x * x;
+        return y;
+    }
+
+    process(condition, delta, isOpacity, dir){
+        if (isOpacity && dir == 'left'){
+            this.animatedObject.style.left = `${condition.x + delta.x}px`;
+            this.animatedObject.style.opacity = `${this.moveFunction(condition.opacity + delta.opac)}`
+            condition.x += delta.x;
+            condition.opacity += delta.opac;
+        }else if(!isOpacity && dir == 'left'){
+            this.animatedObject.style.left = `${condition.x + delta.x}px`;
+            condition.x += delta.x;
+        }else if(isOpacity && dir == 'right'){
+            // document.getElementsByTagName('body')[0].style['max-width'] = document.documentElement.clientWidth;
+            // Array.from(document.getElementsByTagName('section')).forEach((element) => {element.style['max-width'] = document.documentElement.clientWidth;})
+            // document.getElementsByTagName('header')[0].style['max-width'] = document.documentElement.clientWidth;
+            this.animatedObject.style.right = `${condition.x + delta.x}px`;
+            this.animatedObject.style.opacity = `${this.moveFunction(condition.opacity + delta.opac)}`;
+            condition.x += delta.x;
+            condition.opacity += delta.opac;
+        }else if(!isOpacity && dir == 'right'){
+            // document.getElementsByTagName('body')[0].style['max-width'] = document.documentElement.clientWidth;
+            // document,getElementsByTagName('header')[0].style['max-width'] = document.documentElement.clientWidth;
+            this.animatedObject.style.left = `${condition.x + delta.x}px`;
+            condition.x += delta.x;            
+        }else{
+            throw new Error("Not correct animation");
+        }
+    }
+
+    cropMove(){
+
+    }
+
+    leftMove(time){
+        this.animatedObject.style.position = 'absolute';
+        this.animatedObject.before(this.replace);
+        let condition = {x: -this.size.x, y: this.endPlace.top};
+        let result = this.endPlace.left
+        this.animatedObject.style.left = `${condition.x}px`;
+        this.animatedObject.style.top = `${condition.y}px`;
+        let delta = {x: Math.abs(this.endPlace.left - condition.x) / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(result - condition.x) <= delta.x){
+                clearInterval(anim);
+                this.animatedObject.style = "left: ''; top: '';"
+                this.replace.remove();
+                this.animatedObject.style.position = this.position;
+                return;
+            };
+            this.process(condition, delta, false, 'left');
+        }, 1 / 120); 
     }
 
     rightMove(){
+        this.animatedObject.style.position = 'absolute';
+        this.animatedObject.before(this.replace);
+        let condition = {x: -this.size.x, y: this.endPlace.top};
+        let result = this.endPlace.right
+        this.animatedObject.style.right = `${condition.x}px`;
+        this.animatedObject.style.top = `${condition.y}px`;
+        let delta = {x: Math.abs(this.endPlace.right - condition.x) / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(result - condition.x) <= delta.x){
+                clearInterval(anim);
+                this.animatedObject.style = "right: ''; top: '';"
+                this.replace.remove();
+                this.animatedObject.style.position = this.position;
+                return;
+            };
+            this.process(condition, delta, false, 'left');
+        }, 1 / 120); 
 
     }
 
-    topMove(){
-
+    verticalMove(){
     }
 
     leftArc(){
@@ -123,19 +206,72 @@ class Animation{
 
     }
 
-    opacityLeftMove(){
-
+// Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
+    async opacityLeftMoveOnload(time){
+        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top};
+        let result = this.endPlace.left;
+        this.animatedObject.style.left = `${condition.x}px`;
+        this.animatedObject.style.top = `${condition.y}px`;
+        this.animatedObject.style.opacity = `${condition.opacity}`;
+        let delta = {x: Math.abs(this.endPlace.left - condition.x) / (120 * time), opac: 1 / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(result - condition.x) <= delta.x){
+                clearInterval(anim);
+                this.animatedObject.style = "left: ''; top: ''; opacity: '';"
+                this.replace.remove();
+                this.animatedObject.style.position = this.position;
+                return;
+            };
+            try{
+                this.process(condition, delta, true, 'left');
+            }catch (e){
+                console.log(e);
+                condition.x = result;
+            }
+            
+        }, 1000 / 120); 
     }
-
-    opacityRightMove(){
-
+// Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
+    async opacityRightMoveOnload(time){
+        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top};
+        let result = this.endPlace.right;
+        this.animatedObject.style.right = `${condition.x}px`;
+        this.animatedObject.style.top = `${condition.y}px`;
+        this.animatedObject.style.opacity = `${condition.opacity}`;
+        let delta = {x: Math.abs(this.endPlace.right - condition.x) / (120 * time), opac: 1 / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(result - condition.x) <= delta.x){
+                clearInterval(anim);
+                this.animatedObject.style = "right: ''; top: ''; opacity: '';"
+                this.replace.remove();
+                this.animatedObject.style.position = this.position;
+                document.getElementsByTagName('body')[0].removeAttribute('style');
+                return;
+            };
+            try{
+                this.process(condition, delta, true, 'right');
+            }catch (e){
+                console.log(e);
+                condition.x = result;
+            }
+        }, 1000 / 120); 
     }
 }
-        
+ 
+async function createAnimate(){
+    let animationsElems = [];
+    for (let animElem of document.getElementsByClassName('left-animate-onload')){
+        animation = new newAnimation(animElem);
+        animation.opacityStartPosition('left', true);
+        animationsElems.push(animation);
+    }
+    for (let animation of animationsElems){
+        await animation.opacityLeftMoveOnload(1);
+    };
+}
+ createAnimate();
 
 let header = new Header;
 header.backFon();
 document.getElementsByTagName('body')[0].onload = function() {header.createMenu();};
 document.getElementById('menu-lines').addEventListener('click', function() {header.openMenu();});
-
-
