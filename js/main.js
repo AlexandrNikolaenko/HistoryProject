@@ -18,6 +18,12 @@ function elt(tag, atributes, ...children){
     }
     return elem;
 }
+function wrap(element, width, height){
+    let newDiv = elt('div', {style: `width: ${width}; height: ${height}; position: relative;`}, elem);
+    element.before(newDiv);
+    element.remove();
+    return newDiv
+}
 
 // представляет собой весь функционал хедера
 class Header{
@@ -91,7 +97,7 @@ class Header{
         });
     }
 }
-
+// представляет собой весь набор анимаций элементов задействованных на сайте
 class newAnimation{
     constructor(animatedObject){
         this.animatedObject = animatedObject;
@@ -99,6 +105,14 @@ class newAnimation{
         this.size = {x: Number(getComputedStyle(animatedObject).width.slice(0, -2)), y: Number(getComputedStyle(animatedObject).height.slice(0, -2))};
         this.position = getComputedStyle(animatedObject).position;
         this.replace = elt('div', {style: `width: ${this.size.x}px; height: ${this.size.y}px`});
+    }
+
+    cropeStartPosition(dir){
+        this.animatedObject.style.position = 'absolute';
+        this.animatedObject.style.width = '0px';
+        this.animatedObject.style.height = '0px';
+        this.animatedObject.style.top = '0px';
+        this.animatedObject.style[dir] = '0px';
     }
 
     opacityStartPosition(){
@@ -150,11 +164,27 @@ class newAnimation{
         }
     }
 
-    cropMove(){
-
+    async cropMove(time){
+        let wrapper = wrap(this.animatedObject);
+        let condition = {x: 0, y: 0};
+        let delta = {x: this.size.x / (120 * time), y: this.size.y / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(condition.x - this.size.x) >= delta.x && Math.abs(condition.y - this.size.y) >= delta.y){
+                this.animatedObject.style = "width: ''; height: '';"
+                wrapper.before(this.animatedObject);
+                this.animatedObject.style.position = this.position;
+                wrapper.remove();
+                clearInterval(anim);
+            }else{
+                this.animatedObject.style.width = `${condition.x + delta.x}px`;
+                condition.x += delta.x;
+                this.animatedObject.style.height = `${condition.y + delta.y}px`;
+                condition.y += delta.y;
+            }
+        }, 1000 / 120);
     }
 
-    leftMove(time){
+    async leftMove(time){
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
         let condition = {x: -this.size.x, y: this.endPlace.top};
@@ -171,10 +201,10 @@ class newAnimation{
                 return;
             };
             this.process(condition, delta, false, 'left');
-        }, 1 / 120); 
+        }, 1000 / 120); 
     }
 
-    rightMove(){
+    async rightMove(){
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
         let condition = {x: -this.size.x, y: this.endPlace.top};
@@ -191,7 +221,7 @@ class newAnimation{
                 return;
             };
             this.process(condition, delta, false, 'left');
-        }, 1 / 120); 
+        }, 1000 / 120); 
 
     }
 
