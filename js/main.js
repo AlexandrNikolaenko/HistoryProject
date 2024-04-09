@@ -28,8 +28,8 @@ function wrap(element, width, height){
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
-        this.universities = [[ 'Технические', 'Бонч', 'Техноложка', 'Корабелка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
-        ['Военные', 'Буденова', 'Можайка'],
+        this.universities = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
+        ['Военные', 'Буденова', 'Можайка', 'Корабелка'],
         ['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
         ['Медицинские', 'Первый мед', 'Мечникова']];
         this.list = document.getElementById('menu-list');
@@ -37,9 +37,88 @@ class Header{
         this.menu_item = document.getElementsByClassName('.menu_item');
     }
 
+    createDesktopMenu(){
+        for (let ever of this.universities){
+            let groupName = ever[0];
+            let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
+            ever.slice(1).forEach((vuz) => elem.appendChild(elt('p', {class: 'vuz'}, vuz)));
+            this.list.appendChild(elem);
+        }
+    }
 
+    desktopMenuAct(time){
+        if (this.list.getAttribute('open') == "true"){
+            document.getElementsByTagName('img')[0].style.rotate = '';
+            this.closeDesktopMenu(time / 2);
+            this.list.setAttribute('open', 'false');
+        }else{
+            document.getElementsByTagName('img')[0].style.rotate = '180deg';
+            this.openDesktopMenu(time);
+            this.list.setAttribute('open', 'true');
+        }
+    }
+
+    closeDesktopMenu(time){
+        this.list.setAttribute('open', 'false');
+        let menu = document.getElementById('menu-block');
+        let condition = {height: Number(menu.style.height.slice(0, -2)), opac: Number(this.list.style.opacity)}
+        let delta = {height: 400 / (time * 120 / 2), opac: 1 / (time * 120/ 2)};
+        let halfDone = false;
+        let hide = setInterval(() => {
+            this.list.style.opacity = `${condition.opac - delta.opac}`;
+            condition.opac -= delta.opac;
+            console.log(this.list.style.opacity);
+            if (condition.opac <= 0 || this.list.getAttribute('open') == "true"){
+                this.list.style.opacity = '0';
+                halfDone = true;
+                clearInterval(hide);
+                return;
+            }  
+        }, 1000 /120);
+        let close = setInterval(() => {
+            if (halfDone){
+                menu.style.height = `${condition.height - delta.height}px`;
+                condition.height -= delta.height;
+                if (condition.height <= 0 || this.list.getAttribute('open') == "true"){
+                    menu.style.height = '0';
+                    clearInterval(close);
+                    return;
+                }
+            }
+        }, 1000 / 120);
+    }
+
+    openDesktopMenu(time){
+        this.list.setAttribute('open', "true");
+        let menu = document.getElementById('menu-block');
+        let condition = {height: Number(menu.style.height.slice(0, -2)), opac: Number(this.list.style.opacity)}
+        let delta = {height: 400 / (time * 120 / 2), opac: 1 / (time * 120 / 2)};
+        let halfDone = false;
+        let open = setInterval(() => {
+            menu.style.height = `${condition.height + delta.height}px`;
+            condition.height += delta.height;
+            if (condition.height > 400 || this.list.getAttribute('open') == "false"){
+                menu.style.height = '400px';
+                halfDone = true;
+                clearInterval(open);
+                return;
+            }
+        }, 1000 / 120);
+        let show = setInterval(() => {
+            if (halfDone){
+                console.log(this.list.style.opacity);
+                this.list.style.opacity = `${condition.opac + delta.opac}`;
+                condition.opac += delta.opac;
+                if (condition.opac >= 1 || this.list.getAttribute('open') == "false"){
+                    this.list.style.opacity = '1';  
+                    clearInterval(show);
+                    return;
+                }  
+            }
+        }, 1000 / 120);
+    }
     // при загрузке страницы создаём меню с категориями универов
-    createMenu(){
+    createMobileMenu(){
         for (let ever of this.universities){
             let group = ever[0];
             let elem = elt('li', {'class': 'menu_item'},
@@ -73,7 +152,7 @@ class Header{
         }
     }
     // открываем меню по клику
-    openMenu(){
+    openMobileMenu(){
         if (this.list.getAttribute('open') == "true") {
             this.list.style.display = 'none';
             this.list.setAttribute('open', "false");
@@ -119,6 +198,8 @@ class newAnimation{
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
         this.animatedObject.style.opacity = '0';
+        this.animatedObject.style.width = `${this.size.x}px`;
+        this.animatedObject.style.height = `${this.size.y}px`
     }
 
     horizontalStartPosition(dir){
@@ -170,7 +251,7 @@ class newAnimation{
         let delta = {x: this.size.x / (120 * time), y: this.size.y / (120 * time)};
         let anim = setInterval(() => {
             if (Math.abs(condition.x - this.size.x) >= delta.x && Math.abs(condition.y - this.size.y) >= delta.y){
-                this.animatedObject.style = "width: ''; height: '';"
+                this.animatedObject.style = "width: ''; height: ''; left: ''; top: ''; right: ''"
                 wrapper.before(this.animatedObject);
                 this.animatedObject.style.position = this.position;
                 wrapper.remove();
@@ -287,7 +368,35 @@ class newAnimation{
         }, 1000 / 120); 
     }
 }
- 
+
+let menu = document.getElementById('menu');
+let body = document.getElementsByTagName('body')[0];
+if (document.documentElement.clientWidth <= 768){
+    if (body.hasAttribute('index')){
+        menu.appendChild(elt('img', {src: "./img/menu.svg", alt: "menu", id: "menu-lines", style: "cursor: pointer;"}));
+    }else{
+        menu.appendChild(elt('img', {src: "../img/menu.svg", alt: "menu", id: "menu-lines", style: "cursor: pointer;"}));
+    }
+    menu.appendChild(elt('ul', {id: "menu-list", style: "display: none; cursor: pointer;"}));
+}else{
+    menu.appendChild(elt('p', null, 'Университеты'));
+    if (body.hasAttribute('index')){
+        menu.appendChild(elt('img', {src: "./img/menu-sparrow.svg", alt: "menu-sparrow", id: "menu-sparrow"}));
+    }else{
+        menu.appendChild(elt('img', {src: "../img/menu-sparrow.svg", alt: "menu-sparrow", id: "menu-sparrow"}));
+    }
+    document.getElementsByTagName('header')[0].before(elt('div', {id: 'menu-block', style: 'height: 0'}, elt('ul', {id: "menu-list", class: 'wrapper', style: 'opcity: 0'})));
+}
+let header = new Header;
+header.backFon();
+if (document.documentElement.clientWidth <= 768){
+    body.onload = function() {header.createMobileMenu();};
+    document.getElementById('menu-lines').addEventListener('click', function() {header.openMobileMenu();});
+}else{
+    body.onload = function() {header.createDesktopMenu();};
+    document.getElementById('menu').addEventListener('click', function() {header.desktopMenuAct(1);})
+}
+
 async function createAnimate(){
     let animationsElems = [];
     for (let animElem of document.getElementsByClassName('left-animate-onload')){
@@ -299,9 +408,4 @@ async function createAnimate(){
         await animation.opacityLeftMoveOnload(1);
     };
 }
- createAnimate();
-
-let header = new Header;
-header.backFon();
-document.getElementsByTagName('body')[0].onload = function() {header.createMenu();};
-document.getElementById('menu-lines').addEventListener('click', function() {header.openMenu();});
+createAnimate();
