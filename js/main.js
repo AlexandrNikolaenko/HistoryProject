@@ -1,3 +1,8 @@
+var ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
+['Военные', 'Буденова', 'Можайка', 'Корабелка'],
+['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
+['Медицинские', 'Первый мед', 'Мечникова']];
+
 // ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
 
@@ -19,8 +24,8 @@ function elt(tag, atributes, ...children){
     return elem;
 }
 function wrap(element, width, height){
-    let newDiv = elt('div', {style: `width: ${width}; height: ${height}; position: relative;`}, elem);
-    element.before(newDiv);
+    let newDiv = elt('div', {style: `width: ${width}; height: ${height}; position: relative;`}, element);
+    // element.before(newDiv);
     element.remove();
     return newDiv
 }
@@ -28,10 +33,7 @@ function wrap(element, width, height){
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
-        this.universities = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
-        ['Военные', 'Буденова', 'Можайка', 'Корабелка'],
-        ['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
-        ['Медицинские', 'Первый мед', 'Мечникова']];
+        this.universities = ourList;
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
@@ -41,7 +43,11 @@ class Header{
         for (let ever of this.universities){
             let groupName = ever[0];
             let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
-            ever.slice(1).forEach((vuz) => elem.appendChild(elt('p', {class: 'vuz'}, vuz)));
+            if (document.getElementsByTagName("body")[0].hasAttribute('index')){
+                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz}.html`}, vuz)));
+            }else{
+                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz}.html`}, vuz)));
+            }
             this.list.appendChild(elem);
         }
     }
@@ -285,7 +291,7 @@ class newAnimation{
         }, 1000 / 120); 
     }
 
-    async rightMove(){
+    async rightMove(time){
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
         let condition = {x: -this.size.x, y: this.endPlace.top};
