@@ -45,10 +45,78 @@ h3{
     margin: 40px 0 80px 0;
 }
 
+.change-box{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    column-gap: 40px;
+    height: 726px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.change-box::-webkit-scrollbar{
+    display: none;
+}
+
 #map {
     z-index: 0;
     width: 100%;
+    width: 1240px;
     height: 630px;
     padding: 0;
     margin: 0;
+}
+
+#place_for_text{
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+#place_for_text>h3{
+    font-size: 30px;
+}
+
+#place_for_text>p{
+    font-size: 20px;
+}
+
+.vuz-list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    overflow-y: scroll;
+}
+
+.vuz-list::-webkit-scrollbar{
+    display: none;
+}
+
+.vuz-block{
+    background-color: var(--dark_color);
+    color: var(--white_color);
+    width: 1240px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px;
+    border-radius: 15px;
+}
+
+.text-vuz-box>h3{
+    margin: 4px;
+}
+
+.img-vuz-box{
+    max-width: 311px;
+    height: 263px;
+}
+
+.text-vuz-box>p:first-child{
+    font-size: 20px;
+}
+
+.text-vuz-box>p:last-child{
+    font-size: 24px;
+    text-align: end;
 }
