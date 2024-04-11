@@ -1,4 +1,4 @@
-// import { ourList } from "./main";
+import { ourList } from "./main";
 
 let universities = {
     ИТМО: [59.956363, 30.310029],

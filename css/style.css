@@ -10,13 +10,6 @@
     --text-shadow: 0 4px 4px rgba(0, 0, 0, 0.45);
 }
 
-/* Работает в Firefox */
-/* * {
-    scrollbar-width: 12px;
-    scrollbar-color: var(--dark_color) transparent;
-} */
-
-/* Работает в Chrome, Edge и Safari */
 *::-webkit-scrollbar {
     width: 8px;
     right: 4px;
