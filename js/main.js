@@ -1,7 +1,9 @@
-export var ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
+const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
 ['Военные', 'Буденова', 'Можайка', 'Корабелка'],
 ['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
 ['Медицинские', 'Первый мед', 'Мечникова']];
+
+// module.export = {ourList};
 
 // ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
@@ -406,7 +408,7 @@ if (document.documentElement.clientWidth <= 768){
 async function createAnimate(){
     let animationsElems = [];
     for (let animElem of document.getElementsByClassName('left-animate-onload')){
-        animation = new newAnimation(animElem);
+        let animation = new newAnimation(animElem);
         animation.opacityStartPosition('left', true);
         animationsElems.push(animation);
     }

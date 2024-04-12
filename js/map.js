@@ -1,4 +1,5 @@
-import { ourList } from "./main";
+// import { ourList } from "./main";
+// const { ourList } = require('./main.js');
 
 let universities = {
     ИТМО: [59.956363, 30.310029],
