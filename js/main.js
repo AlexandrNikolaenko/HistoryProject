@@ -1,4 +1,4 @@
-import {Universities} from './db.cjs';
+import {Universities} from './dbConnector.cjs';
 
 const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
 
