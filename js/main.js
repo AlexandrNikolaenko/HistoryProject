@@ -1,15 +1,12 @@
-const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
-['Военные', 'Буденова', 'Можайка', 'Корабелка'],
-['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
-['Медицинские', 'Первый мед', 'Мечникова']];
+import {Universities} from './db.js';
 
-// module.export = {ourList};
+const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
 
 // ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
 
 // функция создания новых элементов
-function elt(tag, atributes, ...children){
+export function elt(tag, atributes, ...children){
     let elem = document.createElement(tag);
     if (atributes){
         for (let atribute of Object.keys(atributes)){
@@ -35,7 +32,7 @@ function wrap(element, width, height){
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
-        this.universities = ourList;
+        this.universities = categoryList;
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
@@ -43,12 +40,15 @@ class Header{
 
     createDesktopMenu(){
         for (let ever of this.universities){
-            let groupName = ever[0];
-            let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
+            let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, ever));
             if (document.getElementsByTagName("body")[0].hasAttribute('index')){
-                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz}.html`}, vuz)));
+                Universities.findAll({
+                    where: {category: ever}
+                }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz.pageLink}`}, vuz.university))));
             }else{
-                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz}.html`}, vuz)));
+                Universities.findAll({
+                    where: {category: ever}
+                }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}`}, vuz.university))));
             }
             this.list.appendChild(elem);
         }
@@ -128,9 +128,8 @@ class Header{
     // при загрузке страницы создаём меню с категориями универов
     createMobileMenu(){
         for (let ever of this.universities){
-            let group = ever[0];
             let elem = elt('li', {'class': 'menu_item'},
-            elt('p', null, group));
+            elt('p', null, ever));
             elem.addEventListener('click', function () {
                 if (conditions.openElement && conditions.openElement != elem){
                     conditions.openElement.removeChild(conditions.openElement.childNodes[1]);
@@ -140,15 +139,17 @@ class Header{
                     let univWrap = document.createElement('ul');
                     univWrap.className = 'vuz-box';
                     univWrap.style.position = 'absolute';
-                    for (let i = 1; i < ever.length; i++){
+                    Universities.findAll({
+                        where: {category: ever}
+                    }).then((list) => list.forEach((vuz) => {
                         if (document.getElementsByTagName('body')[0].hasAttribute('index')){
                             univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
+                            elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university))));
                         }else{
                             univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `../${ever[i]}.html`}, elt('div', null, ever[i]))));
+                            elt('a', {'href': `./${vuz.pageLink}`}, elt('div', vuz.university))));
                         }
-                    }
+                    }));
                     elem.appendChild(univWrap);
                     conditions.openElement = elem;
                 }else {
