@@ -1,4 +1,4 @@
-import {Universities} from './db.js';
+import {Universities} from './db.cjs';
 
 const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
 
