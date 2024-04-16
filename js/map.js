@@ -1,5 +1,7 @@
-import { Universities } from "./dbConnector.cjs";
+import { Universities } from "./dbConnector.js";
 import { elt } from "./main.js";
+// const Universities = require('./dbConnector.cjs');
+// const elt = require('./main.js');
 
 // let universities = {
 //     ИТМО: [59.956363, 30.310029],

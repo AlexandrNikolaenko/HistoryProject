@@ -1,39 +1,44 @@
 // import sequelize from 'sequelize';
-const { Sequelize, DataTypes, Model } = require('sequelize');
-// import { Sequelize } from '../node_modules/sequelize/lib/sequelize.js';
+// const { Sequelize, DataTypes, Model } = require('../node_modules/sequelize/');
+// import {Sequelize} from '../node_modules/sequelize/lib/sequelize.js';
+// import Sequelize from '../node_modules/sequelize/lib/sequelize.js';
+const Sequelize = require('sequelize/lib/sequelize');
 const sequelizeCon = new Sequelize({
     dialect: 'sqlite',
     storage: 'database.sqlite'
 });
 
-class Universities extends Model{};
+
+class Universities extends Sequelize.Model{};
 
 Universities.init(
     {
         university: {
-            type: DataTypes.STRING
+            type: Sequelize.DataTypes.STRING
         },
         fullname: {
-            type: DataTypes.TEXT
+            type: Sequelize.DataTypes.TEXT
         },
         category: {
-            type: DataTypes.STRING
+            type: Sequelize.DataTypes.STRING
         },
         imgLink: {
-            type: DataTypes.STRING
+            type: Sequelize.DataTypes.STRING
         },
         shortText: {
-            type: DataTypes.TEXT
+            type: Sequelize.DataTypes.TEXT
         },
         place: {
-            type: DataTypes.JSON
+            type: Sequelize.DataTypes.JSON
         },
         pageLink: {
-            type: DataTypes.STRING
+            type: Sequelize.DataTypes.STRING
         }
     }, {sequelize: sequelizeCon, modelName: 'Universities'}
 );
 
 sequelizeCon.sync();
 
-exports.Universities = Universities;
+module.exports = Universities;
+
+// exports.Universities = Universities;

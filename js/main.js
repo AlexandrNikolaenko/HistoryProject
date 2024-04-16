@@ -1,4 +1,10 @@
 import {Universities} from './dbConnector.cjs';
+// const Universities = require('./dbConnector.js');
+
+// const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
+// ['Военные', 'Буденова', 'Можайка', 'Корабелка'],
+// ['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
+// ['Медицинские', 'Первый мед', 'Мечникова']];
 
 const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
 
@@ -32,11 +38,21 @@ function wrap(element, width, height){
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
+        // this.universities = ourList;
         this.universities = categoryList;
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
     }
+
+    // createDesktopMenu(){
+    //     for (let ever of this.universities){
+    //         let groupName = ever[0];
+    //         let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
+    //         if (document.getElementsByTagName("body")[0].hasAttribute('index')){
+    //             ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz}.html`}, vuz)));
+    //         }else{
+    //             ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz}.html`}, vuz)));
 
     createDesktopMenu(){
         for (let ever of this.universities){
@@ -125,6 +141,38 @@ class Header{
             }
         }, 1000 / 120);
     }
+
+    // createMobileMenu(){
+    //     for (let ever of this.universities){
+    //         let group = ever[0];
+    //         let elem = elt('li', {'class': 'menu_item'},
+    //         elt('p', null, group));
+    //         elem.addEventListener('click', function () {
+    //             if (conditions.openElement && conditions.openElement != elem){
+    //                 conditions.openElement.removeChild(conditions.openElement.childNodes[1]);}
+    //             if (elem.childNodes.length == 1){
+    //                 let univWrap = document.createElement('ul');
+    //                 univWrap.className = 'vuz-box';
+    //                 univWrap.style.position = 'absolute';
+    //                 for (let i = 1; i < ever.length; i++){
+    //                     if (document.getElementsByTagName('body')[0].hasAttribute('index')){
+    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
+    //                         elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
+    //                     }else{
+    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
+    //                         elt('a', {'href': `../${ever[i]}.html`}, elt('div', null, ever[i]))));
+    //                     }
+    //                 }
+    //                 elem.appendChild(univWrap);
+    //                 conditions.openElement = elem;
+    //             }else {
+    //                 elem.removeChild(elem.childNodes[1]);
+    //                 conditions.openElement = null;
+    //             }
+    //         });
+    //         this.list.appendChild(elem);
+    //     }
+    // }
     // при загрузке страницы создаём меню с категориями универов
     createMobileMenu(){
         for (let ever of this.universities){
@@ -193,6 +241,7 @@ class newAnimation{
         this.size = {x: Number(getComputedStyle(animatedObject).width.slice(0, -2)), y: Number(getComputedStyle(animatedObject).height.slice(0, -2))};
         this.position = getComputedStyle(animatedObject).position;
         this.replace = elt('div', {style: `width: ${this.size.x}px; height: ${this.size.y}px`});
+        this.scroll = window.scrollY;
     }
 
     cropeStartPosition(dir){
@@ -277,7 +326,7 @@ class newAnimation{
     async leftMove(time){
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
-        let condition = {x: -this.size.x, y: this.endPlace.top};
+        let condition = {x: -this.size.x, y: this.endPlace.top + this.scroll};
         let result = this.endPlace.left
         this.animatedObject.style.left = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
@@ -297,7 +346,7 @@ class newAnimation{
     async rightMove(time){
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
-        let condition = {x: -this.size.x, y: this.endPlace.top};
+        let condition = {x: -this.size.x, y: this.endPlace.top + this.scroll};
         let result = this.endPlace.right
         this.animatedObject.style.right = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
@@ -328,7 +377,7 @@ class newAnimation{
 
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityLeftMoveOnload(time){
-        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top};
+        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
         let result = this.endPlace.left;
         this.animatedObject.style.left = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
@@ -353,7 +402,7 @@ class newAnimation{
     }
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityRightMoveOnload(time){
-        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top};
+        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
         let result = this.endPlace.right;
         this.animatedObject.style.right = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
