@@ -1,34 +1,7 @@
-import { Universities } from "./dbConnector.js";
-import { elt } from "./main.js";
-// const Universities = require('./dbConnector.cjs');
-// const elt = require('./main.js');
+// import { Universities } from "./dbConnector.js";
+import { elt, dataList } from "./modules.js";
 
-// let universities = {
-//     ИТМО: [59.956363, 30.310029],
-//     ЛЭТИ: [59.9720000, 30.3237000],
-//     Политех: [60.007465, 30.373109],
-//     Горный: [59.930007, 30.268504],
-//     СПбГУ: [59.941633, 30.299293],
-//     Военмех: [59.916363, 30.315955],
-//     Можайка: [59.956251, 30.283498],
-//     Тряпка: [59.935015, 30.316422],
-//     Лесопилка: [59.992693, 30.343432],
-//     'Технологический университет': [59.917580, 30.318926],
-//     'Первый медицинский университет им. академика И.П. Павлова': [59.965205, 30.321884],
-//     'Северо-Западный государственный медицинский университет им. И. И. Мечникова': [59.983885, 30.429952],
-//     'СПбГМТУ (Корабелка)': [59.850593, 30.224049],
-//     'Военная академия связи им. Будённого': [60.011139, 30.374003],
-//     ГУАП: [59.930346, 30.295054],
-//     ГАСУ: [59.915063, 30.316433],
-//     ПГУПС: [59.924154, 30.317196],
-//     Гик: [59.988359, 30.302293],
-//     Репина: [59.937718, 30.289652],
-//     Герцена: [59.933661, 30.321726],
-//     Ваганова: [59.930628, 30.335050],
-//     Ргси: [59.940691, 30.345233],
-//     Лесгафта: [59.926299, 30.290014],
-//     Бонч: [59.903174, 30.489809]
-// };
+let condition = {lastElem: null};
 
 ymaps.ready(function() {
     let newMap = new ymaps.Map('map', {
@@ -38,33 +11,33 @@ ymaps.ready(function() {
         searchControlProvider: 'yandex#search'
     });
 
-    Universities.findAll().then((list) => {
-        list.forEach((vuz) => {
-            let vuzPlacemark = new ymaps.Placemark(vuz.place, {
-                hintContent: vuz.fullname,
-                ballonContent: ''
-            })
-            vuzPlacemark.events.add('click', function() {
-                Array.from(document.getElementsByClassName('be_remove')).forEach((text) => text.remove());
-                let element = new ListandElements(document.getElementById('place_for_text'));
-                element.createElement(vuz.university, vuz.fullname, vuz.shortText, true);
-            })
-            newMap.geoObjects.add(vuzPlacemark);
-        })
-    })
+    // Universities.findAll().then((list) => {
+    //     list.forEach((vuz) => {
+    //         let vuzPlacemark = new ymaps.Placemark(vuz.place, {
+    //             hintContent: vuz.fullname,
+    //             ballonContent: ''
+    //         })
+    //         vuzPlacemark.events.add('click', function() {
+    //             Array.from(document.getElementsByClassName('be_remove')).forEach((text) => text.remove());
+    //             let element = new ListandElements(document.getElementById('place_for_text'));
+    //             element.createElement(vuz.university, vuz.fullname, vuz.shortText, true);
+    //         })
+    //         newMap.geoObjects.add(vuzPlacemark);
+    //     })
+    // })
 
-    // for (let vuz of Object.keys(universities)){
-    //     let vuzPlacemark = new ymaps.Placemark(universities[vuz], {
-    //         hintContent: vuz,
-    //         ballonContent: ''
-    //     })
-    //     vuzPlacemark.events.add('click', function() {
-    //         Array.from(document.getElementsByClassName('be_remove')).forEach((text) => text.remove());
-    //         let element = new ListandElements(document.getElementById('place_for_text'));
-    //         element.createElement(vuz, fullname, shortText, true);
-    //     })
-    //     newMap.geoObjects.add(vuzPlacemark);
-    // }
+    dataList.forEach((vuz) => {
+                let vuzPlacemark = new ymaps.Placemark([vuz.place.x, vuz.place.y], {
+                    hintContent: vuz.fullname,
+                    ballonContent: ''
+                })
+                vuzPlacemark.events.add('click', function() {
+                    Array.from(document.getElementsByClassName('be_remove')).forEach((text) => text.remove());
+                    let element = new ListandElements(document.getElementById('place_for_text'));
+                    element.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, true);
+                })
+                newMap.geoObjects.add(vuzPlacemark);
+            });
 });
 
 class ListandElements{
@@ -72,15 +45,19 @@ class ListandElements{
         this.place = container;
     }
 
-    createElement(vuz, fullname, shortText, once){
-        let block = elt('div', {class: 'vuz-block'},
-            elt('div', {class: 'img-vuz-box'}, elt('img', null)),
+    createElement(vuz, fullname, shortText, imgLink, pageLink, once){
+        if (condition.lastElem != null){
+            this.place.removeChild(condition.lastElem);
+        }
+        let block = elt('a', {class: 'vuz-block', href: pageLink},
+            elt('div', {class: 'img-vuz-box'}, elt('img', {src: imgLink})),
             elt('div', {class: 'text-vuz-box'}, 
                 elt('h3', null, vuz),
                 elt('p', null, fullname),
                 elt('p', null, shortText)));
         if (once){
             this.place.appendChild(block);
+            condition.lastElem = block;
         }else{
             return block;
         }

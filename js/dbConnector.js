@@ -1,15 +1,11 @@
-// import sequelize from 'sequelize';
-// const { Sequelize, DataTypes, Model } = require('../node_modules/sequelize/');
-// import {Sequelize} from '../node_modules/sequelize/lib/sequelize.js';
-// import Sequelize from '../node_modules/sequelize/lib/sequelize.js';
-const Sequelize = require('sequelize/lib/sequelize');
+import {Sequelize} from '../node_modules/sequelize/lib/index.mjs';
 const sequelizeCon = new Sequelize({
     dialect: 'sqlite',
     storage: 'database.sqlite'
 });
 
 
-class Universities extends Sequelize.Model{};
+export class Universities extends Sequelize.Model{};
 
 Universities.init(
     {
@@ -38,7 +34,3 @@ Universities.init(
 );
 
 sequelizeCon.sync();
-
-module.exports = Universities;
-
-// exports.Universities = Universities;

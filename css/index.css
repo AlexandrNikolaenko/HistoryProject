@@ -1,17 +1,15 @@
-:root{
+/* :root{
     --text-shadow: 0 4px 4px rgba(0, 0, 0, 0.45);
-}
+} */
 
 .first-view{
     background: url(../img/main-fon.png) no-repeat top right;
+    background-attachment: local;
     padding-top: 153px;
 }
 
 .first-sec{
-    display: flex;
-    padding-bottom: 489px;
-    row-gap: 64px;
-    flex-direction: column;
+    padding-bottom: 60px;
 }
 
 .title{
@@ -19,7 +17,31 @@
 }
 
 .first-sec>p{
-    font-size: 40px;
+    font-size: 32px;
     font-weight: medium;
     text-shadow: var(--text-shadow);
+    padding: 30px 0;
+}
+
+#main-text-block{
+    display: flex;
+    flex-direction: column;
+    row-gap: 22px;
+}
+
+#can-list>li{
+    font-size: 20px;
+    line-height: 157%;
+    list-style: inside;
+    color: var(--white_color);
+}
+
+#can-list>p{
+    font-size: 20px;
+    line-height: 157%;
+}
+
+#main-text-block>p{
+    font-size: 20px;
+    line-height: 157%;
 }

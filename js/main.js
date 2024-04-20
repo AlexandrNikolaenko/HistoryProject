@@ -1,10 +1,11 @@
-import {Universities} from './dbConnector.cjs';
-// const Universities = require('./dbConnector.js');
+// import {Universities} from './dbConnector.js';
+// import {sqlite3} from '../node_modules/sqlite3/lib/sqlite3.js';
+import { elt } from "./modules.js";
 
-// const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
-// ['Военные', 'Буденова', 'Можайка', 'Корабелка'],
-// ['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
-// ['Медицинские', 'Первый мед', 'Мечникова']];
+const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
+['Военные', 'Буденова', 'Можайка', 'Корабелка'],
+['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
+['Медицинские', 'Первый мед', 'Мечникова']];
 
 const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
 
@@ -12,22 +13,7 @@ const categoryList = ['Технические', 'Военные', 'Гумани�
 var conditions = {openElement: null};
 
 // функция создания новых элементов
-export function elt(tag, atributes, ...children){
-    let elem = document.createElement(tag);
-    if (atributes){
-        for (let atribute of Object.keys(atributes)){
-            elem.setAttribute(atribute, atributes[atribute]);
-        }
-    }
-    for (let child of children){
-        if (typeof child == 'string'){
-            elem.textContent = child;
-        } else{
-            elem.appendChild(child);
-        }
-    }
-    return elem;
-}
+
 function wrap(element, width, height){
     let newDiv = elt('div', {style: `width: ${width}; height: ${height}; position: relative;`}, element);
     // element.before(newDiv);
@@ -38,37 +24,40 @@ function wrap(element, width, height){
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
-        // this.universities = ourList;
-        this.universities = categoryList;
+        this.universities = ourList;
+        // this.universities = categoryList;
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
     }
 
-    // createDesktopMenu(){
-    //     for (let ever of this.universities){
-    //         let groupName = ever[0];
-    //         let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
-    //         if (document.getElementsByTagName("body")[0].hasAttribute('index')){
-    //             ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz}.html`}, vuz)));
-    //         }else{
-    //             ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz}.html`}, vuz)));
-
     createDesktopMenu(){
         for (let ever of this.universities){
-            let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, ever));
+            let groupName = ever[0];
+            let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
             if (document.getElementsByTagName("body")[0].hasAttribute('index')){
-                Universities.findAll({
-                    where: {category: ever}
-                }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz.pageLink}`}, vuz.university))));
+                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz}.html`}, vuz)));
             }else{
-                Universities.findAll({
-                    where: {category: ever}
-                }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}`}, vuz.university))));
+                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz}.html`}, vuz)));
             }
             this.list.appendChild(elem);
         }
     }
+    // createDesktopMenu(){
+    //     for (let ever of this.universities){
+    //         let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, ever));
+    //         if (document.getElementsByTagName("body")[0].hasAttribute('index')){
+    //             Universities.findAll({
+    //                 where: {category: ever}
+    //             }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz.pageLink}`}, vuz.university))));
+    //         }else{
+    //             Universities.findAll({
+    //                 where: {category: ever}
+    //             }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}`}, vuz.university))));
+    //         }
+    //         this.list.appendChild(elem);
+    //     }
+    // }
 
     desktopMenuAct(time){
         if (this.list.getAttribute('open') == "true"){
@@ -91,7 +80,6 @@ class Header{
         let hide = setInterval(() => {
             this.list.style.opacity = `${condition.opac - delta.opac}`;
             condition.opac -= delta.opac;
-            console.log(this.list.style.opacity);
             if (condition.opac <= 0 || this.list.getAttribute('open') == "true"){
                 this.list.style.opacity = '0';
                 halfDone = true;
@@ -130,7 +118,6 @@ class Header{
         }, 1000 / 120);
         let show = setInterval(() => {
             if (halfDone){
-                console.log(this.list.style.opacity);
                 this.list.style.opacity = `${condition.opac + delta.opac}`;
                 condition.opac += delta.opac;
                 if (condition.opac >= 1 || this.list.getAttribute('open') == "false"){
@@ -142,62 +129,27 @@ class Header{
         }, 1000 / 120);
     }
 
-    // createMobileMenu(){
-    //     for (let ever of this.universities){
-    //         let group = ever[0];
-    //         let elem = elt('li', {'class': 'menu_item'},
-    //         elt('p', null, group));
-    //         elem.addEventListener('click', function () {
-    //             if (conditions.openElement && conditions.openElement != elem){
-    //                 conditions.openElement.removeChild(conditions.openElement.childNodes[1]);}
-    //             if (elem.childNodes.length == 1){
-    //                 let univWrap = document.createElement('ul');
-    //                 univWrap.className = 'vuz-box';
-    //                 univWrap.style.position = 'absolute';
-    //                 for (let i = 1; i < ever.length; i++){
-    //                     if (document.getElementsByTagName('body')[0].hasAttribute('index')){
-    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
-    //                         elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
-    //                     }else{
-    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
-    //                         elt('a', {'href': `../${ever[i]}.html`}, elt('div', null, ever[i]))));
-    //                     }
-    //                 }
-    //                 elem.appendChild(univWrap);
-    //                 conditions.openElement = elem;
-    //             }else {
-    //                 elem.removeChild(elem.childNodes[1]);
-    //                 conditions.openElement = null;
-    //             }
-    //         });
-    //         this.list.appendChild(elem);
-    //     }
-    // }
-    // при загрузке страницы создаём меню с категориями универов
     createMobileMenu(){
         for (let ever of this.universities){
+            let group = ever[0];
             let elem = elt('li', {'class': 'menu_item'},
-            elt('p', null, ever));
+            elt('p', null, group));
             elem.addEventListener('click', function () {
                 if (conditions.openElement && conditions.openElement != elem){
-                    conditions.openElement.removeChild(conditions.openElement.childNodes[1]);
-                    conditions.openElement = null;
-                }
+                    conditions.openElement.removeChild(conditions.openElement.childNodes[1]);}
                 if (elem.childNodes.length == 1){
                     let univWrap = document.createElement('ul');
                     univWrap.className = 'vuz-box';
                     univWrap.style.position = 'absolute';
-                    Universities.findAll({
-                        where: {category: ever}
-                    }).then((list) => list.forEach((vuz) => {
+                    for (let i = 1; i < ever.length; i++){
                         if (document.getElementsByTagName('body')[0].hasAttribute('index')){
                             univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university))));
+                            elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
                         }else{
                             univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `./${vuz.pageLink}`}, elt('div', vuz.university))));
+                            elt('a', {'href': `../${ever[i]}.html`}, elt('div', null, ever[i]))));
                         }
-                    }));
+                    }
                     elem.appendChild(univWrap);
                     conditions.openElement = elem;
                 }else {
@@ -208,6 +160,41 @@ class Header{
             this.list.appendChild(elem);
         }
     }
+    // при загрузке страницы создаём меню с категориями универов
+    // createMobileMenu(){
+    //     for (let ever of this.universities){
+    //         let elem = elt('li', {'class': 'menu_item'},
+    //         elt('p', null, ever));
+    //         elem.addEventListener('click', function () {
+    //             if (conditions.openElement && conditions.openElement != elem){
+    //                 conditions.openElement.removeChild(conditions.openElement.childNodes[1]);
+    //                 conditions.openElement = null;
+    //             }
+    //             if (elem.childNodes.length == 1){
+    //                 let univWrap = document.createElement('ul');
+    //                 univWrap.className = 'vuz-box';
+    //                 univWrap.style.position = 'absolute';
+    //                 Universities.findAll({
+    //                     where: {category: ever}
+    //                 }).then((list) => list.forEach((vuz) => {
+    //                     if (document.getElementsByTagName('body')[0].hasAttribute('index')){
+    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
+    //                         elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university))));
+    //                     }else{
+    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
+    //                         elt('a', {'href': `./${vuz.pageLink}`}, elt('div', vuz.university))));
+    //                     }
+    //                 }));
+    //                 elem.appendChild(univWrap);
+    //                 conditions.openElement = elem;
+    //             }else {
+    //                 elem.removeChild(elem.childNodes[1]);
+    //                 conditions.openElement = null;
+    //             }
+    //         });
+    //         this.list.appendChild(elem);
+    //     }
+    // }
     // открываем меню по клику
     openMobileMenu(){
         if (this.list.getAttribute('open') == "true") {
@@ -241,7 +228,8 @@ class newAnimation{
         this.size = {x: Number(getComputedStyle(animatedObject).width.slice(0, -2)), y: Number(getComputedStyle(animatedObject).height.slice(0, -2))};
         this.position = getComputedStyle(animatedObject).position;
         this.replace = elt('div', {style: `width: ${this.size.x}px; height: ${this.size.y}px`});
-        this.scroll = window.scrollY;
+        if (animatedObject.hasAttribute('block')) this.scrol = 0;
+        else this.scroll = window.scrollY;
     }
 
     cropeStartPosition(dir){
@@ -286,9 +274,9 @@ class newAnimation{
             this.animatedObject.style.left = `${condition.x + delta.x}px`;
             condition.x += delta.x;
         }else if(isOpacity && dir == 'right'){
-            // document.getElementsByTagName('body')[0].style['max-width'] = document.documentElement.clientWidth;
-            // Array.from(document.getElementsByTagName('section')).forEach((element) => {element.style['max-width'] = document.documentElement.clientWidth;})
-            // document.getElementsByTagName('header')[0].style['max-width'] = document.documentElement.clientWidth;
+            document.getElementsByTagName('body')[0].style['max-width'] = document.documentElement.clientWidth;
+            Array.from(document.getElementsByTagName('section')).forEach((element) => element.style['max-width'] = document.documentElement.clientWidth);
+            document.getElementsByTagName('header')[0].style['max-width'] = document.documentElement.clientWidth;
             this.animatedObject.style.right = `${condition.x + delta.x}px`;
             this.animatedObject.style.opacity = `${this.moveFunction(condition.opacity + delta.opac)}`;
             condition.x += delta.x;
@@ -398,7 +386,7 @@ class newAnimation{
                 condition.x = result;
             }
             
-        }, 1000 / 120); 
+        }, 1000 / 120);
     }
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityRightMoveOnload(time){
@@ -467,3 +455,5 @@ async function createAnimate(){
     };
 }
 createAnimate();
+
+// module.exports = elt

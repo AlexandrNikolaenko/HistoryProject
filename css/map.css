@@ -4,12 +4,17 @@
     padding-top: 141px;
 }
 
-.wrapper>h3, .wrapper>p{
-    font-size: 24px;
+.wrapper>p{
+    font-size: 20px;
+    font-weight: 4%;
     font-weight: medium;
 }
 
 h3{
+    padding-top: 3px;
+    padding-bottom: 20px;
+    font-size: 24px;
+    font-weight: medium;
     color: var(--white_color);
     padding-bottom: 12px
 }
@@ -53,6 +58,8 @@ h3{
     height: 726px;
     overflow-y: hidden;
     overflow-x: scroll;
+    transition: all .2 ease-in-out;
+    /* justify-content: flex-end; */
 }
 
 .change-box::-webkit-scrollbar{
@@ -98,9 +105,11 @@ h3{
     width: 1240px;
     display: flex;
     flex-direction: row;
+    column-gap: 40px;
     justify-content: space-between;
     padding: 40px;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .text-vuz-box>h3{
@@ -109,7 +118,12 @@ h3{
 
 .img-vuz-box{
     max-width: 311px;
-    height: 263px;
+    height: auto;
+    overflow: hidden;
+}
+
+.img-vuz-box>img{
+    height: 100%;
 }
 
 .text-vuz-box>p:first-child{
@@ -118,5 +132,5 @@ h3{
 
 .text-vuz-box>p:last-child{
     font-size: 24px;
-    text-align: end;
+    padding-top: 23.9px;
 }
