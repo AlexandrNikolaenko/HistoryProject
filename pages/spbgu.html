@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/map.css">
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ea3dfc4c-21ff-48da-92f3-baabcff57c66" type="text/javascript"></script>
-    <script type="module" src="../js/map.js"></script>
+    <link rel="stylesheet" href="../css/vuz.css">
     <title>Document</title>
 </head>
-<body>
+<body vuz="spbgu">
     <header>
-        <div class="lit-wrapper header">
-            <div class="menu" id="menu">
+        <div class="wrapper header">
+            <div class="left-animate-onload" block>
+                <div class="menu" id="menu">
+                </div>
             </div>
             <nav>
                 <ul class="navigation">
@@ -21,42 +21,44 @@
                         <a class="header_text" href="../index.html">Главная</a>
                     </li>
                     <li>
-                        <a class="header_text" href="./map.html">Карта</a>
+                        <a class="header_text" href="../pages/map.html">Карта</a>
                     </li>
                     <li>
-                        <a class="header_text" href="./history.html">История развития</a>
+                        <a class="header_text" href="../pages/history.html">История развития</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-    <section class="info">
+    <section class="first_section">
         <div class="wrapper">
             <div class="lit-wrapper">
-                <h1 class="left-animate-onload">Университеты Ленинграда</h1>
-                <h3 class="left-animate-onload">(расположение и краткое описание)</h3>
+                <h2 class="left-animate-onload">СПбГУ</h2>
+                <p class="left-animate-onload">(Санкт-Петербургский Государственный университет)</p>
             </div>
-            <p class="left-animate-onload">На данной странице отмечено расположение главных корпусов высших учебных заведений Ленинграда на карте современного Санкт-Петербурга.<br>
-                Также вы можете увидеть университеты Ленинграда, представленные в виде списка.<br>
-                Нажав на метку на карте вы получите краткую сводку об университете из списка, нажав на которую попадете на страницу университета.<br>
-                В списке вы можете использовать фильтр по направлению образования.</p>
-            <div class="show-choise">
-                <div class="choise">
-                    <div class="choise-item left-animate-onload" id="byMap">На карте</div>
-                    <div class="choise-item" id="byList">Списком</div>
+            <div class="left-text-block">
+                <div class="left-text">
+                    <div class="mini-text-block">
+                        <h5>Возобновление работы после войны</h5>
+                        <p>В послевоенные годы ЛГУ продолжал свою деятельность, преодолевая трудности и разрушения, нанесенные войной. Университет активно восстанавливал учебные программы и укреплял научные и учебные связи с другими вузами и исследовательскими центрами. Благодаря усилиям администрации, преподавателей и студентов, ЛГУ успешно возобновил свою работу и продолжал вести высокий уровень образования и научных исследований.</p>
+                    </div>
+                    <div class="mini-text-block">
+                        <h5>Названия</h5>
+                        <ul>
+                            <li>1944 — Ленинградский ордена Ленина государственный университет</li>
+                            <li>1948 — Ленинградский ордена Ленина государственный университет имени А. А. Жданова</li>
+                            <li>1969 — Ленинградский ордена Ленина и ордена Трудового Красного Знамени государственный университет имени А. А. Жданова</li>
+                            <li>1989 — Ленинградский ордена Ленина и ордена Трудового Красного Знамени государственный университет</li>
+                            <li>1991 — Санкт-Петербургский государственный университет</li>
+                        </ul>
+                    </div>
+                    <div class="mini-text-block">
+                        <h5>Количество обучающихся</h5>
+                        <p>В 1972/73 учебном году обучалось свыше 20 тыс. студентов (около 11 тыс. на дневном отделении); работало около 3 тыс. преподавателей и научных сотрудников, в том числе 25 академиков и член-корреспондентов АН СССР, республиканских и отраслевых академий, 400 профессоров и докторов наук, 1400 доцентов и кандидатов наук.</p>
+                    </div>
                 </div>
-                <div class="line"></div>
-                <div class="change-box">
-                    <div class="map">
-                        <div id="place_for_text">
-                            <h3 class="be_remove">Выберите университет на карте</h3>
-                            <p class="be_remove">и получите краткую информацию и ссылку на университет. На карте отмечены только главные корпуса университетов.</p>
-                        </div>
-                        <div id="map"></div>
-                    </div>
-                    <div class="list">
+                <div class="right-img">
 
-                    </div>
                 </div>
             </div>
         </div>

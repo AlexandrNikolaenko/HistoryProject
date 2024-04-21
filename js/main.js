@@ -1,5 +1,6 @@
 // import {Universities} from './dbConnector.js';
 // import {sqlite3} from '../node_modules/sqlite3/lib/sqlite3.js';
+import { dataList } from "./modules.js";
 import { elt } from "./modules.js";
 
 const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
@@ -18,14 +19,23 @@ function wrap(element, width, height){
     let newDiv = elt('div', {style: `width: ${width}; height: ${height}; position: relative;`}, element);
     // element.before(newDiv);
     element.remove();
-    return newDiv
+    return newDiv;
 }
+
+function createFon(){
+    let vuz = document.getElementsByTagName('body')[0].getAttribute('vuz');
+    document.getElementsByTagName('section')[0].setAttribute('style', `background: url(../img/${vuz}-main.png) no-repeat top right`);
+    // document.getElementsByTagName('section')[1].setAttribute('style', `background: url(../img/${vuz}-second.png) no-repeat top left`);
+}
+
+if (document.getElementsByTagName('body')[0].hasAttribute('vuz')) createFon();
 
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
         this.universities = ourList;
         // this.universities = categoryList;
+        
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
