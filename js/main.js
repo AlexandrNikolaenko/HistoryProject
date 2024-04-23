@@ -1,12 +1,5 @@
-// import {Universities} from './dbConnector.js';
-// import {sqlite3} from '../node_modules/sqlite3/lib/sqlite3.js';
 import { dataList } from "./modules.js";
 import { elt } from "./modules.js";
-
-const ourList = [[ 'Технические', 'Бонч', 'Техноложка', 'ГУАП', 'ГАСУ', 'ПГУПС', 'ЛЭТИ', 'Горный', 'СПбГУ', 'ИТМО', 'Политех', 'Военмех', 'Лесопилка', 'Тряпка'],
-['Военные', 'Буденова', 'Можайка', 'Корабелка'],
-['Гуманитарные', 'ГИК', 'Репина', 'Герцена', 'Ваганова', 'РГИСИ', 'Лесгофта', 'Римского-Корсакова'],
-['Медицинские', 'Первый мед', 'Мечникова']];
 
 const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
 
@@ -33,9 +26,7 @@ if (document.getElementsByTagName('body')[0].hasAttribute('vuz')) createFon();
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
-        this.universities = ourList;
-        // this.universities = categoryList;
-        
+        this.universities = categoryList;
         this.list = document.getElementById('menu-list');
         this.list.setAttribute('open', 'false');
         this.menu_item = document.getElementsByClassName('.menu_item');
@@ -43,13 +34,15 @@ class Header{
 
     createDesktopMenu(){
         for (let ever of this.universities){
-            let groupName = ever[0];
+            let groupName = ever;
             let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, groupName));
-            if (document.getElementsByTagName("body")[0].hasAttribute('index')){
-                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz}.html`}, vuz)));
-            }else{
-                ever.slice(1).forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz}.html`}, vuz)));
-            }
+            dataList.filter((vuz) => vuz.category == ever).forEach((vuz) => {
+                if (document.getElementsByTagName("body")[0].hasAttribute('index')){
+                    elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz.pageLink}`}, vuz.university));
+                }else{
+                    elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}.html`}, vuz.university));
+                }
+            }) 
             this.list.appendChild(elem);
         }
     }
@@ -138,12 +131,11 @@ class Header{
             }
         }, 1000 / 120);
     }
-
+    
     createMobileMenu(){
         for (let ever of this.universities){
-            let group = ever[0];
-            let elem = elt('li', {'class': 'menu_item'},
-            elt('p', null, group));
+            let groupName = ever;
+            let elem = elt('li', {'class': 'menu_item'}, elt('p', null, groupName));
             elem.addEventListener('click', function () {
                 if (conditions.openElement && conditions.openElement != elem){
                     conditions.openElement.removeChild(conditions.openElement.childNodes[1]);}
@@ -151,15 +143,15 @@ class Header{
                     let univWrap = document.createElement('ul');
                     univWrap.className = 'vuz-box';
                     univWrap.style.position = 'absolute';
-                    for (let i = 1; i < ever.length; i++){
+                    dataList.filter((vuz) => vuz.category == ever).forEach((vuz) => {
                         if (document.getElementsByTagName('body')[0].hasAttribute('index')){
                             univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `./pages/${ever[i]}.html`}, elt('div', null, ever[i]))));
+                            elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university))));
                         }else{
                             univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `../${ever[i]}.html`}, elt('div', null, ever[i]))));
+                            elt('a', {'href': `../${vuz.pageLink}`}, elt('div', null, vuz.university))));
                         }
-                    }
+                    });
                     elem.appendChild(univWrap);
                     conditions.openElement = elem;
                 }else {

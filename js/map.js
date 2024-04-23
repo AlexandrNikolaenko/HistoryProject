@@ -1,7 +1,21 @@
-// import { Universities } from "./dbConnector.js";
 import { elt, dataList } from "./modules.js";
 
 let condition = {lastElem: null};
+
+function scrollButtom(dir){
+    let box = document.getElementsByClassName('change-box')[0];
+    if (dir == 'map'){
+        box.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",})
+    }else if (dir == 'list'){
+        box.scrollTo({
+            top: 0,
+            left: 1280,
+            behavior: "smooth",})
+    }else return;
+}
 
 ymaps.ready(function() {
     let newMap = new ymaps.Map('map', {
@@ -63,11 +77,17 @@ class ListandElements{
         }
     }
 
-    createList(vuzList){
+    createList(){
         let list = elt('ul', {class: 'vuz-list'});
-        vuzList.forEach((vuz) => {
-            list.appendChild(elt('li', {class: 'list-elem'}, this.createElement(vuz, fullname, shortText, false)));
+        dataList.forEach((vuz) => {
+            list.appendChild(elt('li', {class: 'list-elem'}, this.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, false)));
         });
-        this.place.appendChild(list)
+        this.place.appendChild(list);
     }
 }
+
+let list = new ListandElements(document.getElementById('list'));
+list.createList()
+
+document.getElementById('byMap').addEventListener('click', () => scrollButtom('map'));
+document.getElementById('byList').addEventListener('click', () => scrollButtom('list'));

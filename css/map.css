@@ -101,12 +101,10 @@ h3{
 
 .vuz-block{
     background-color: var(--dark_color);
-    color: var(--white_color);
     width: 1240px;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 311px auto;
     column-gap: 40px;
-    justify-content: space-between;
     padding: 40px;
     border-radius: 15px;
     cursor: pointer;
@@ -123,6 +121,7 @@ h3{
 }
 
 .img-vuz-box>img{
+    object-fit: cover;
     height: 100%;
 }
 
@@ -133,4 +132,14 @@ h3{
 .text-vuz-box>p:last-child{
     font-size: 24px;
     padding-top: 23.9px;
+}
+
+#list{
+    height: 726px;
+    width: fit-content;
+    overflow: scroll;
+}
+
+#list::-webkit-scrollbar{
+    display: none;
 }
