@@ -17,8 +17,16 @@ function wrap(element, width, height){
 
 function createFon(){
     let vuz = document.getElementsByTagName('body')[0].getAttribute('vuz');
-    document.getElementsByTagName('section')[0].setAttribute('style', `background: url(../img/${vuz}-main.png) no-repeat top right`);
-    // document.getElementsByTagName('section')[1].setAttribute('style', `background: url(../img/${vuz}-second.png) no-repeat top left`);
+    try{
+        document.getElementsByTagName('section')[0].setAttribute('style', `background: url(../img/${vuz}-main.png) no-repeat top right`);
+    }catch(e) {
+        console.log(e);
+    }
+    try{
+        document.getElementsByTagName('section')[1].setAttribute('style', `background: url(../img/${vuz}-second.png) no-repeat top left`);
+    }catch(e) {
+        console.log(e);
+    }
 }
 
 if (document.getElementsByTagName('body')[0].hasAttribute('vuz')) createFon();
@@ -40,7 +48,7 @@ class Header{
                 if (document.getElementsByTagName("body")[0].hasAttribute('index')){
                     elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz.pageLink}`}, vuz.university));
                 }else{
-                    elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}.html`}, vuz.university));
+                    elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}`}, vuz.university));
                 }
             }) 
             this.list.appendChild(elem);
