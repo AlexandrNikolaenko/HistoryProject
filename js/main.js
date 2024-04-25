@@ -1,7 +1,6 @@
 import { dataList } from "./modules.js";
 import { elt } from "./modules.js";
-
-const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
+import { categoryList } from "./modules.js";
 
 // ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
@@ -465,5 +464,3 @@ async function createAnimate(){
     };
 }
 createAnimate();
-
-// module.exports = elt

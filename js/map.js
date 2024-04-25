@@ -1,6 +1,6 @@
-import { elt, dataList } from "./modules.js";
+import { elt, dataList, categoryList } from "./modules.js";
 
-let condition = {lastElem: null};
+let condition = {lastElem: null, scrollTop: false};
 
 function scrollButtom(dir){
     let box = document.getElementsByClassName('change-box')[0];
@@ -8,12 +8,12 @@ function scrollButtom(dir){
         box.scrollTo({
             top: 0,
             left: 0,
-            behavior: "smooth",})
+            behavior: "smooth"})
     }else if (dir == 'list'){
         box.scrollTo({
             top: 0,
             left: 1280,
-            behavior: "smooth",})
+            behavior: "smooth"})
     }else return;
 }
 
@@ -46,9 +46,10 @@ ymaps.ready(function() {
                     ballonContent: ''
                 })
                 vuzPlacemark.events.add('click', function() {
-                    Array.from(document.getElementsByClassName('be_remove')).forEach((text) => text.remove());
+                    let def = Array.from(document.getElementsByClassName('be_remove'));
+                    def.forEach((text) => text.remove());
                     let element = new ListandElements(document.getElementById('place_for_text'));
-                    element.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, true);
+                    element.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, true, def);
                 })
                 newMap.geoObjects.add(vuzPlacemark);
             });
@@ -59,29 +60,65 @@ class ListandElements{
         this.place = container;
     }
 
-    createElement(vuz, fullname, shortText, imgLink, pageLink, once){
+    createElement(vuz, fullname, shortText, imgLink, pageLink, once, def){
         if (condition.lastElem != null){
             this.place.removeChild(condition.lastElem);
         }
-        let block = elt('a', {class: 'vuz-block', href: pageLink},
+        let block = elt('div', null, elt('a', {class: 'vuz-block', href: pageLink},
             elt('div', {class: 'img-vuz-box'}, elt('img', {src: imgLink})),
             elt('div', {class: 'text-vuz-box'}, 
                 elt('h3', null, vuz),
                 elt('p', null, fullname),
-                elt('p', null, shortText)));
+                elt('p', null, shortText))));
         if (once){
+            block.style.position = 'relative';
             this.place.appendChild(block);
             condition.lastElem = block;
+            let close = elt('div', {class: 'vuz-close'}, elt('img', {src: '../img/close.svg'}));
+            close.addEventListener('click', () => {
+                this.place.removeChild(block);
+                console.log(def);
+                def.forEach(child => this.place.appendChild(child));
+                condition.lastElem = null;
+            });
+            block.appendChild(close);
         }else{
             return block;
         }
     }
 
-    createList(){
-        let list = elt('ul', {class: 'vuz-list'});
-        dataList.forEach((vuz) => {
+    createList(data = dataList){
+        let filter = elt('div', {class: 'filter  lit-wrapper'});
+        let list = elt('ul', {class: 'vuz-list'}, filter);
+        data.forEach((vuz) => {
             list.appendChild(elt('li', {class: 'list-elem'}, this.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, false)));
         });
+        categoryList.forEach(category => {
+            let button = elt('button', {class: 'filter-button'}, category);
+            button.addEventListener('click', () => {
+                this.place.removeChild(list);
+                this.createList(dataList.filter(vuz => vuz.category === category))})
+            filter.appendChild(button);
+        });
+        // let up = elt('button', {class: 'arrow-up'}, elt('img', {href: '../img/arrow-up.svg'}))
+        // up.addEventListener('click', (event) => {
+        //     event.preventDefault();
+        //     list.scrollTo({
+        //         top: 0,
+        //         left: 0,
+        //         behavior: "smooth"
+        //     })
+        // })
+        // let block = document.getElementById('list')
+        // block.addEventListener('scroll', () => {
+        //     if (!screenTop) {
+        //         block.appendChild(up);
+        //         condition.scrollTop = true;
+        //     };
+        //     if (list.scrollY == 0){
+        //         list.removeChild(up)
+        //     }
+        // })
         this.place.appendChild(list);
     }
 }

@@ -134,12 +134,50 @@ h3{
     padding-top: 23.9px;
 }
 
+.filter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filter-button{
+    padding: 12px 24px;
+    background: var(--main_color);
+    border-radius: 30px;
+    border: var(--dark-stroke-style);
+    font-size: 20px;
+    color: var(--white_color);
+}
+
 #list{
     height: 726px;
     width: fit-content;
     overflow: scroll;
+    position: relative;
 }
 
 #list::-webkit-scrollbar{
     display: none;
+}
+
+.vuz-close{
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    rotate: 0;
+    transition: rotate .2s;
+    cursor: pointer;
+}
+
+.vuz-close:hover, .vuz-close:focus, .vuz-close:active{
+    rotate: 180deg;
+}
+
+.arrow-up{
+    border-radius: 50%;
+    background-color: var(--lite-dark-color);
+    position: absolute;
+    right: 40px;
+    top: 40px;
 }

@@ -15,6 +15,8 @@ export function elt(tag, atributes, ...children){
     return elem;
 }
 
+export const categoryList = ['Технические', 'Военные', 'Гуманитарные', 'Медицинские'];
+
 export let dataList = [
     {university: 'ГУАП',
     fullname: 'Государственный университет авиакосмического приборостроения', 

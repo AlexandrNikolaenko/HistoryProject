@@ -5,7 +5,9 @@
     --dark_color: #191919;
     --white_color: #FFFFFF;
     --link_text_color: #14B9FF;
+    --lite-dark-color: #595959;
     --stroke_style: 1px solid #595959;
+    --dark-stroke-style: 2px solid #191919;
     --header-fon: rgba(25, 25, 25, 0);
     --text-shadow: 0 4px 4px rgba(0, 0, 0, 0.45);
     --main-font: 'Montserrat';
@@ -91,6 +93,7 @@ li, h2, h5, p{
     color: var(--white_color);
     line-height: 130%;
     letter-spacing: .04rem;
+    text-align: justify;
 }
 
 .wrapper{
