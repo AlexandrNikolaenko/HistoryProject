@@ -5,14 +5,6 @@ import { categoryList } from "./modules.js";
 // ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
 
-// функция создания новых элементов
-
-// function wrap(element, width, height){
-//     console.log('here');
-//     let newDiv = elt('div', { class: 'newDiv', style: `width: ${width}; height: ${height}; position: relative; overflow: hidden;`}, element);
-//     return newDiv;
-// }
-
 function createFon(){
     let vuz = document.getElementsByTagName('body')[0].getAttribute('vuz');
     try{
@@ -252,6 +244,7 @@ class newAnimation{
 
     opacityStartPosition(){
         this.animatedObject.style.position = 'absolute';
+        this.animatedObject.style.top = `${this.endPlace.top}px`;
         this.animatedObject.before(this.replace);
         this.animatedObject.style.opacity = '0';
         this.animatedObject.style.width = `${this.size.x}px`;
@@ -444,55 +437,73 @@ async function createAnimate(){
         animation.opacityStartPosition();
         await animation.opacityRightMoveOnload(1);
     }
-    // for (let animElem of document.getElementByClassName('left-crop-animate-onload')){
-    //     let animation = new newAnimation(animElem);
-    //     animation.cropeStartPosition('left');
-    //     await animation.cropMove(1);
-    // }
-    for (let animElem of document.getElementsByClassName('right-crop-animate-onload')){
-        let animation = new newAnimation(animElem);
-        animation.cropeStartPosition('right');
-        await animation.cropMove(1);
-    }
     for (let animElem of document.getElementsByClassName('left-animate-onscroll')){
         let animation = new newAnimation(animElem);
         animation.opacityStartPosition();
-        window.addEventListener('scroll', (event) => {
-            if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                animation.opacityLeftMoveOnload(1);
-                window.removeEventListener(event);
+        let func = async function () {
+            if (window.innerHeight >= animElem.getBoundingClientRect().y){
+                await animation.opacityLeftMoveOnload(1);
+                window.removeEventListener('scroll', func);
             }
-        });
+        }
+        window.addEventListener('scroll', func);
     }
     for (let animElem of document.getElementsByClassName('right-animate-onscroll')){
         let animation = new newAnimation(animElem);
         animation.opacityStartPosition();
-        window.addEventListener('scroll', (event) => {
-            if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                animation.opacityRightMoveOnload(1);
-                window.removeEventListener(event);
+        let func = async function () {
+            if (window.innerHeight >= animElem.getBoundingClientRect().y){
+                await animation.opacityRightMoveOnload(1);
+                window.removeEventListener('scroll', func);
             }
-        });
+        }
+        window.addEventListener('scroll', func);
+    }  
+    if (document.getElementsByTagName('body')[0].hasAttribute('vuz')){
+        let crops = {
+            leftOnload: document.getElementsByClassName('left-crop-animate-onload'),
+            rightOnload: document.getElementsByClassName('right-crop-animate-onload'),
+            leftOnscroll: document.getElementsByClassName('left-crop-animate-onscroll'),
+            rightOnscroll: document.getElementsByClassName('right-crop-animate-onscroll')
+        }
+        console.log(crops.leftOnload)
+        if(crops.leftOnload){
+            for (let animElem of crops.leftOnload){
+                let animation = new newAnimation(animElem);
+                animation.cropeStartPosition('left');
+                await animation.cropMove(1);
+            }
+        }if(crops.rightOnload){
+            for (let animElem of crops.rightOnload){
+                let animation = new newAnimation(animElem);
+                animation.cropeStartPosition('right');
+                await animation.cropMove(1);
+            }
+        }if(crops.leftOnscroll){
+            for (let animElem of crops.leftOnscroll){
+                let animation = new newAnimation(animElem);
+                animation.cropeStartPosition('left');
+                let func = async function () {
+                    if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
+                        await animation.cropMove(1);
+                        window.removeEventListener('scroll', func);
+                    }
+                }
+                window.addEventListener('scroll', func);
+            }    
+        }if(crops.rightOnscroll){
+            for (let animElem of crops.rightOnscroll){
+                let animation = new newAnimation(animElem);
+                animation.cropeStartPosition('right');
+                let func = async function () {
+                    if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
+                        await animation.cropMove(1);
+                        window.removeEventListener('scroll', func);
+                    }
+                }
+                window.addEventListener('scroll', func);
+            } 
+        }
     }
-    // for (let animElem of document.getElementByClassName('left-crop-animate-onscroll')){
-    //     let animation = new newAnimation(animElem);
-    //     animation.cropeStartPosition('left');
-    //     window.addEventListener('scroll', (event) => {
-    //         if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-    //             animation.opacityLeftMoveOnload(1);
-    //             window.removeEventListener(event);
-    //         }
-    //     });
-    // }    
-    for (let animElem of document.getElementByClassName('right-crop-animate-onscroll')){
-        let animation = new newAnimation(animElem);
-        animation.cropeStartPosition('right');
-        window.addEventListener('scroll', (event) => {
-            if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                animation.opacityLeftMoveOnload(1);
-                window.removeEventListener(event);
-            }
-        });
-    }   
 }
 createAnimate();
