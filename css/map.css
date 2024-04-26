@@ -154,6 +154,9 @@ h3{
     height: 726px;
     width: fit-content;
     overflow: scroll;
+}
+
+#list-box{
     position: relative;
 }
 
@@ -178,6 +181,7 @@ h3{
     border-radius: 50%;
     background-color: var(--lite-dark-color);
     position: absolute;
+    padding: 12.5px;
     right: 40px;
-    top: 40px;
+    bottom: 40px;
 }

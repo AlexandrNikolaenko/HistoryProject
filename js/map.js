@@ -41,18 +41,18 @@ ymaps.ready(function() {
     // })
 
     dataList.forEach((vuz) => {
-                let vuzPlacemark = new ymaps.Placemark([vuz.place.x, vuz.place.y], {
-                    hintContent: vuz.fullname,
-                    ballonContent: ''
-                })
-                vuzPlacemark.events.add('click', function() {
-                    let def = Array.from(document.getElementsByClassName('be_remove'));
-                    def.forEach((text) => text.remove());
-                    let element = new ListandElements(document.getElementById('place_for_text'));
-                    element.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, true, def);
-                })
-                newMap.geoObjects.add(vuzPlacemark);
-            });
+        let vuzPlacemark = new ymaps.Placemark([vuz.place.x, vuz.place.y], {
+            hintContent: vuz.fullname,
+            ballonContent: ''
+        })
+        vuzPlacemark.events.add('click', function() {
+            let def = Array.from(document.getElementsByClassName('be_remove'));
+            def.forEach((text) => text.remove());
+            let element = new ListandElements(document.getElementById('place_for_text'));
+            element.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, true, def);
+        })
+        newMap.geoObjects.add(vuzPlacemark);
+    });
 });
 
 class ListandElements{
@@ -61,7 +61,8 @@ class ListandElements{
     }
 
     createElement(vuz, fullname, shortText, imgLink, pageLink, once, def){
-        if (condition.lastElem != null){
+        if (condition.lastElem != null && once){
+            console.log(once);
             this.place.removeChild(condition.lastElem);
         }
         let block = elt('div', null, elt('a', {class: 'vuz-block', href: pageLink},
@@ -97,34 +98,44 @@ class ListandElements{
             let button = elt('button', {class: 'filter-button'}, category);
             button.addEventListener('click', () => {
                 this.place.removeChild(list);
-                this.createList(dataList.filter(vuz => vuz.category === category))})
+                this.createList(dataList.filter(vuz => vuz.category === category))});
             filter.appendChild(button);
         });
-        // let up = elt('button', {class: 'arrow-up'}, elt('img', {href: '../img/arrow-up.svg'}))
-        // up.addEventListener('click', (event) => {
-        //     event.preventDefault();
-        //     list.scrollTo({
-        //         top: 0,
-        //         left: 0,
-        //         behavior: "smooth"
-        //     })
-        // })
-        // let block = document.getElementById('list')
-        // block.addEventListener('scroll', () => {
-        //     if (!screenTop) {
-        //         block.appendChild(up);
-        //         condition.scrollTop = true;
-        //     };
-        //     if (list.scrollY == 0){
-        //         list.removeChild(up)
-        //     }
-        // })
+        let allButton = elt('button', {class: 'filter-button'}, 'Сброс')
+        allButton.addEventListener('click', () => {
+            this.place.removeChild(list);
+            this.createList(dataList)});
+        filter.appendChild(allButton);
         this.place.appendChild(list);
+    }
+
+    createUpButton(){
+        let up = elt('div', {class: 'arrow-up'}, elt('img', {src: '../img/arrow-up.svg'}));
+        up.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.place.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            });
+            this.place.parentNode.removeChild(up);
+        })
+        this.place.addEventListener('scroll', () => {
+            if (!screenTop) {
+                this.place.parentNode.appendChild(up);
+                condition.scrollTop = true;
+            };
+            console.log(this.place.scrollHeight);
+            if (this.place.scrollY == 0){
+                this.place.parentNode.removeChild(up);
+            }
+        })
     }
 }
 
 let list = new ListandElements(document.getElementById('list'));
-list.createList()
+list.createList();
+list.createUpButton();
 
 document.getElementById('byMap').addEventListener('click', () => scrollButtom('map'));
 document.getElementById('byList').addEventListener('click', () => scrollButtom('list'));

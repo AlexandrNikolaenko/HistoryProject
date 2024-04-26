@@ -12,18 +12,20 @@
 </head>
 <body>
     <header>
-        <div class="lit-wrapper header">
-            <div class="menu" id="menu">
+        <div class="wrapper header">
+            <div class="left-animate-onload" block>
+                <div class="menu" id="menu">
+                </div>
             </div>
             <nav>
                 <ul class="navigation">
-                    <li>
+                    <li class="right-animate-onload" block>
                         <a class="header_text" href="../index.html">Главная</a>
                     </li>
-                    <li>
+                    <li class="right-animate-onload" block>
                         <a class="header_text" href="./map.html">Карта</a>
                     </li>
-                    <li>
+                    <li class="right-animate-onload" block>
                         <a class="header_text" href="./history.html">История развития</a>
                     </li>
                 </ul>
@@ -43,7 +45,7 @@
             <div class="show-choise">
                 <div class="choise">
                     <div class="choise-item left-animate-onload" id="byMap">На карте</div>
-                    <div class="choise-item" id="byList">Списком</div>
+                    <div class="choise-item right-animate-onload" id="byList">Списком</div>
                 </div>
                 <div class="line"></div>
                 <div class="change-box">
@@ -54,7 +56,7 @@
                         </div>
                         <div id="map"></div>
                     </div>
-                    <div>
+                    <div id="list-box">
                         <div id="list">
                         </div>
                     </div>
