@@ -118,16 +118,16 @@ class ListandElements{
                 left: 0,
                 behavior: "smooth"
             });
-            this.place.parentNode.removeChild(up);
+            condition.scrollTop = false;
         })
         this.place.addEventListener('scroll', () => {
-            if (!screenTop) {
+            if (!condition.scrollTop) {
                 this.place.parentNode.appendChild(up);
                 condition.scrollTop = true;
             };
-            console.log(this.place.scrollHeight);
-            if (this.place.scrollY == 0){
+            if (this.place.scrollTop == 0){
                 this.place.parentNode.removeChild(up);
+                condition.scrollTop = false;
             }
         })
     }
