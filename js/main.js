@@ -236,8 +236,8 @@ class newAnimation{
         this.animatedObject.style.position = 'absolute';
         this.animatedObject.before(this.replace);
         this.animatedObject.style.transform = 'scale(0)';
-        this.animatedObject.style.top = `${this.endPlace.top + this.scroll}px`;
-        this.animatedObject.style[dir] = `${this.endPlace[dir]}px`;
+        this.animatedObject.style.top = `${this.endPlace.top + this.scroll - (this.size.y / 2)}px`;
+        this.animatedObject.style[dir] = `${this.endPlace[dir] - (this.size.x / 2)}px`;
         this.animatedObject.style.width = `${this.size.x}px`;
         this.animatedObject.style.height = `${this.size.y}px`;
     }
@@ -251,16 +251,16 @@ class newAnimation{
         this.animatedObject.style.height = `${this.size.y}px`;
     }
 
-    horizontalStartPosition(dir){
-        this.animatedObject.style.position = 'absolute';
-        this.animatedObject.before(this.replace);
-        this.animatedObject.style.top = this.endPlace.top + this.scroll;
-        if (dir == 'right'){
-            this.animatedObject.style.right = `${-this.size.x}px`;
-        }else{
-            this.animatedObject.style.left = `${-this.size.x}px`;
-        }
-    }
+    // horizontalStartPosition(dir){
+    //     this.animatedObject.style.position = 'absolute';
+    //     this.animatedObject.before(this.replace);
+    //     this.animatedObject.style.top = this.endPlace.top + this.scroll;
+    //     if (dir == 'right'){
+    //         this.animatedObject.style.right = `${-this.size.x}px`;
+    //     }else{
+    //         this.animatedObject.style.left = `${-this.size.x}px`;
+    //     }
+    // }
 
     moveFunction(x){
         let y = x * x * x * x;
@@ -292,17 +292,22 @@ class newAnimation{
         }
     }
 
-    async cropMove(time){
+    async cropMove(time, dir){
         // let wrapper = wrap(this.animatedObject);
-        let condition = {scale: 0};
-        let delta = {scale: 1 / (120 * time)};
+        let condition = {scale: 0, y: this.endPlace.top + this.scroll - (this.size.y / 2), x: this.endPlace[dir] - (this.size.x / 2)};
+        let delta = {scale: 1 / (120 * time), y: this.size.y / 2 / (120 * time), x: this.size.x / 2 / (120 * time)};
         let anim = setInterval(() => {
             if (Math.abs(condition.scale - 1) <= delta.scale){
                 this.animatedObject.style = "top: '', left: '', rigth: '', width: '', height: '', transform: ''";
                 this.animatedObject.style.position = this.position;
                 this.replace.remove();
+                clearInterval(anim);
             }else{
                 this.animatedObject.style.transform = `scale(${condition.scale + delta.scale})`;
+                this.animatedObject.style.top = `${condition.y + delta.y}px`;
+                this.animatedObject.style[dir] = `${condition.x + delta.x}px`;
+                condition.x += delta.x;
+                condition.y += delta.y;
                 condition.scale += delta.scale;
             }
         }, 1000 / 120);
@@ -471,13 +476,13 @@ async function createAnimate(){
             for (let animElem of crops.leftOnload){
                 let animation = new newAnimation(animElem);
                 animation.cropeStartPosition('left');
-                await animation.cropMove(1);
+                await animation.cropMove(1, 'left');
             }
         }if(crops.rightOnload){
             for (let animElem of crops.rightOnload){
                 let animation = new newAnimation(animElem);
                 animation.cropeStartPosition('right');
-                await animation.cropMove(1);
+                await animation.cropMove(1, 'right');
             }
         }if(crops.leftOnscroll){
             for (let animElem of crops.leftOnscroll){
@@ -485,7 +490,7 @@ async function createAnimate(){
                 animation.cropeStartPosition('left');
                 let func = async function () {
                     if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                        await animation.cropMove(1);
+                        await animation.cropMove(1, 'left');
                         window.removeEventListener('scroll', func);
                     }
                 }
@@ -497,7 +502,7 @@ async function createAnimate(){
                 animation.cropeStartPosition('right');
                 let func = async function () {
                     if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                        await animation.cropMove(1);
+                        await animation.cropMove(1,'right');
                         window.removeEventListener('scroll', func);
                     }
                 }
