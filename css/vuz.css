@@ -89,3 +89,46 @@ h5{
 .fact>ul>li>p{
     font-size: 14px;
 }
+
+.fact-active-block{
+    position: fixed;
+    padding: 40px;
+    top: 100px;
+    left: 50%;
+    z-index: 101;
+    display: none;
+    transform: translateX(-50%);
+    transition: display .2s;
+    border-radius: 20px;
+    border: var(--dark-stroke-style);
+    background-color: var(--main_color);
+}
+
+.fact-wrap{
+    position: relative;
+    display: grid;
+    align-items: center;
+    row-gap: 40px;
+}
+
+.fact-wrap>div:first-child{
+    margin: auto;
+    width: 400px;
+}
+
+.full-fact{
+    display: block;
+}
+
+.close{
+    width: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    transition: rotate .2s;
+}
+
+.close:hover, .close:focus, .close:active{
+    rotate: 180deg;
+}

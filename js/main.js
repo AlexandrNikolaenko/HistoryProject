@@ -5,22 +5,6 @@ import { categoryList } from "./modules.js";
 // ячейка хранения стостояний некоторых элементов
 var conditions = {openElement: null};
 
-function createFon(){
-    let vuz = document.getElementsByTagName('body')[0].getAttribute('vuz');
-    try{
-        document.getElementsByTagName('section')[0].setAttribute('style', `background: url(../img/${vuz}-main.png) no-repeat top right`);
-    }catch(e) {
-        console.log(e);
-    }
-    try{
-        document.getElementsByTagName('section')[1].setAttribute('style', `background: url(../img/${vuz}-second.png) no-repeat top left`);
-    }catch(e) {
-        console.log(e);
-    }
-}
-
-if (document.getElementsByTagName('body')[0].hasAttribute('vuz')) createFon();
-
 // представляет собой весь функционал хедера
 class Header{
     constructor(){
@@ -471,7 +455,6 @@ async function createAnimate(){
             leftOnscroll: document.getElementsByClassName('left-crop-animate-onscroll'),
             rightOnscroll: document.getElementsByClassName('right-crop-animate-onscroll')
         }
-        console.log(crops.leftOnload)
         if(crops.leftOnload){
             for (let animElem of crops.leftOnload){
                 let animation = new newAnimation(animElem);
