@@ -1,5 +1,5 @@
 section{
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 .first_section{
@@ -32,7 +32,6 @@ h5{
 .left-text-block, .right-text-block, .center-text-block{
     display: grid;
     column-gap: 40px;
-    margin: 50px 0;
 }
 
 .left-text-block{
@@ -45,6 +44,7 @@ h5{
 
 .center-text-block{
     grid-template-columns: repeat(2, 1fr);
+    margin: 50px 0;
 }
 
 .mini-text-block>p, .mini-text-block>ul>li{
