@@ -235,17 +235,6 @@ class newAnimation{
         this.animatedObject.style.height = `${this.size.y}px`;
     }
 
-    // horizontalStartPosition(dir){
-    //     this.animatedObject.style.position = 'absolute';
-    //     this.animatedObject.before(this.replace);
-    //     this.animatedObject.style.top = this.endPlace.top + this.scroll;
-    //     if (dir == 'right'){
-    //         this.animatedObject.style.right = `${-this.size.x}px`;
-    //     }else{
-    //         this.animatedObject.style.left = `${-this.size.x}px`;
-    //     }
-    // }
-
     moveFunction(x){
         let y = x * x * x * x;
         return y;
@@ -415,23 +404,23 @@ if (document.documentElement.clientWidth <= 768){
     document.getElementById('menu').addEventListener('click', function() {header.desktopMenuAct(1);})
 }
 
-async function createAnimate(){
+async function createAnimate(timer){
     for (let animElem of document.getElementsByClassName('left-animate-onload')){
         let animation = new newAnimation(animElem);
         animation.opacityStartPosition();
-        await animation.opacityLeftMoveOnload(1);
+        await animation.opacityLeftMoveOnload(timer);
     }
     for (let animElem of document.getElementsByClassName('right-animate-onload')){
         let animation = new newAnimation(animElem);
         animation.opacityStartPosition();
-        await animation.opacityRightMoveOnload(1);
+        await animation.opacityRightMoveOnload(timer);
     }
     for (let animElem of document.getElementsByClassName('left-animate-onscroll')){
         let animation = new newAnimation(animElem);
         animation.opacityStartPosition();
         let func = async function () {
             if (window.innerHeight >= animElem.getBoundingClientRect().y){
-                await animation.opacityLeftMoveOnload(1);
+                await animation.opacityLeftMoveOnload(timer);
                 window.removeEventListener('scroll', func);
             }
         }
@@ -442,7 +431,7 @@ async function createAnimate(){
         animation.opacityStartPosition();
         let func = async function () {
             if (window.innerHeight >= animElem.getBoundingClientRect().y){
-                await animation.opacityRightMoveOnload(1);
+                await animation.opacityRightMoveOnload(timer);
                 window.removeEventListener('scroll', func);
             }
         }
@@ -459,13 +448,13 @@ async function createAnimate(){
             for (let animElem of crops.leftOnload){
                 let animation = new newAnimation(animElem);
                 animation.cropeStartPosition('left');
-                await animation.cropMove(1, 'left');
+                await animation.cropMove(timer, 'left');
             }
         }if(crops.rightOnload){
             for (let animElem of crops.rightOnload){
                 let animation = new newAnimation(animElem);
                 animation.cropeStartPosition('right');
-                await animation.cropMove(1, 'right');
+                await animation.cropMove(timer, 'right');
             }
         }if(crops.leftOnscroll){
             for (let animElem of crops.leftOnscroll){
@@ -473,7 +462,7 @@ async function createAnimate(){
                 animation.cropeStartPosition('left');
                 let func = async function () {
                     if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                        await animation.cropMove(1, 'left');
+                        await animation.cropMove(timer, 'left');
                         window.removeEventListener('scroll', func);
                     }
                 }
@@ -485,7 +474,7 @@ async function createAnimate(){
                 animation.cropeStartPosition('right');
                 let func = async function () {
                     if (document.documentElement.clientHeight >= animElem.getBoundingClientRect().top){
-                        await animation.cropMove(1,'right');
+                        await animation.cropMove(timer,'right');
                         window.removeEventListener('scroll', func);
                     }
                 }
@@ -494,4 +483,4 @@ async function createAnimate(){
         }
     }
 }
-createAnimate();
+createAnimate(0.8);
