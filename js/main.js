@@ -28,21 +28,6 @@ class Header{
             this.list.appendChild(elem);
         }
     }
-    // createDesktopMenu(){
-    //     for (let ever of this.universities){
-    //         let elem = elt('li', {'class': 'menu_item'}, elt('h5', {class: 'menu-title'}, ever));
-    //         if (document.getElementsByTagName("body")[0].hasAttribute('index')){
-    //             Universities.findAll({
-    //                 where: {category: ever}
-    //             }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./pages/${vuz.pageLink}`}, vuz.university))));
-    //         }else{
-    //             Universities.findAll({
-    //                 where: {category: ever}
-    //             }).then((list) => list.forEach((vuz) => elem.appendChild(elt('a', {class: 'vuz', href: `./${vuz.pageLink}`}, vuz.university))));
-    //         }
-    //         this.list.appendChild(elem);
-    //     }
-    // }
 
     desktopMenuAct(time){
         if (this.list.getAttribute('open') == "true"){
@@ -144,41 +129,6 @@ class Header{
             this.list.appendChild(elem);
         }
     }
-    // при загрузке страницы создаём меню с категориями универов
-    // createMobileMenu(){
-    //     for (let ever of this.universities){
-    //         let elem = elt('li', {'class': 'menu_item'},
-    //         elt('p', null, ever));
-    //         elem.addEventListener('click', function () {
-    //             if (conditions.openElement && conditions.openElement != elem){
-    //                 conditions.openElement.removeChild(conditions.openElement.childNodes[1]);
-    //                 conditions.openElement = null;
-    //             }
-    //             if (elem.childNodes.length == 1){
-    //                 let univWrap = document.createElement('ul');
-    //                 univWrap.className = 'vuz-box';
-    //                 univWrap.style.position = 'absolute';
-    //                 Universities.findAll({
-    //                     where: {category: ever}
-    //                 }).then((list) => list.forEach((vuz) => {
-    //                     if (document.getElementsByTagName('body')[0].hasAttribute('index')){
-    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
-    //                         elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university))));
-    //                     }else{
-    //                         univWrap.appendChild(elt('li', {class: 'vuz-name'},
-    //                         elt('a', {'href': `./${vuz.pageLink}`}, elt('div', vuz.university))));
-    //                     }
-    //                 }));
-    //                 elem.appendChild(univWrap);
-    //                 conditions.openElement = elem;
-    //             }else {
-    //                 elem.removeChild(elem.childNodes[1]);
-    //                 conditions.openElement = null;
-    //             }
-    //         });
-    //         this.list.appendChild(elem);
-    //     }
-    // }
     // открываем меню по клику
     openMobileMenu(){
         if (this.list.getAttribute('open') == "true") {
