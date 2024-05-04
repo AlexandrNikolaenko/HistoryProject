@@ -1,0 +1,27 @@
+body{
+    background-image: url(../img/History-fon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+h2{
+    font-size: 64px;
+    font-weight: bold;
+    padding-top: 150px;
+}
+
+h3{
+    font-size: 48px;
+    font-weight: 500;
+    padding-bottom: 30px;
+}
+
+p{
+    font-size: 20px;
+}
+
+section:first-child{
+    margin-bottom: 50px;
+}
