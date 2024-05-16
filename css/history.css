@@ -18,10 +18,79 @@ h3{
     padding-bottom: 30px;
 }
 
+h4{
+    font-size: 38px;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center; 
+}
+
 p{
     font-size: 20px;
 }
 
 section:first-child{
     margin-bottom: 50px;
+}
+
+.fact-block{
+    position: absolute;
+    display: grid;
+    grid-template-columns: 189px 169px;
+    column-gap: 23px;
+    height: 200px;
+    padding: 23px;
+    background-color: var(--dark_color);
+    border-radius: 13px;
+}
+
+.fact-short-text{
+    align-self: center;
+}
+
+.fact-img-block{
+    align-self: center;
+    max-height: 154px;
+    overflow: hidden;
+}
+
+section{
+    position: relative;
+}
+
+.open-fact{
+    position: fixed;
+    padding: 40px;
+    top: 100px;
+    left: 50%;
+    z-index: 101;
+    transform: translateX(-50%);
+    transition: display .2s;
+    border-radius: 20px;
+    border: var(--dark-stroke-style);
+    background-color: var(--main_color);
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.fact-wrap{
+    position: relative;
+}
+
+.close{
+    width: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    transition: rotate .2s;
+}
+
+.close:hover, .close:focus, .close:active{
+    rotate: 180deg;
+}
+
+.full-img-block{
+
 }
