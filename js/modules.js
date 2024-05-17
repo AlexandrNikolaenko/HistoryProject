@@ -286,4 +286,229 @@ export let historyFacts = [
     },
 ]
 
-// module.exports = elt;
+export let sourses = [
+    {
+        vuz: 'Государственный университет авиакосмического приборостроения',
+        links: [
+            'https://guap.ru/m/history/liap',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_университет_аэрокосмического_приборостроения#История',
+            'https://www.rucompany.ru/company.php?id_company=1689',
+            'http://www.lomonosov-fund.ru/enc/ru/encyclopedia:0125127',
+            'https://guap.ru/'
+        ],
+        vuzLink: 'https://guap.ru/'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный морской технический университет',
+        links: [
+            'https://spbu.ru/history',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_университет#История',
+            'https://gufo.me/dict/bse/Ленинградский_университет',
+            'https://spbu.ru'
+        ],
+        vuzLink: 'https://spbu.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный институт культуры',
+        links: [
+            'https://ru.wikipedia.org/wiki/Государственный_университет_просвещения',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_университет#История',
+            'https://gufo.me/dict/bse/Ленинградский_университет'
+        ],
+        vuzLink: 'https://spbu.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургская академия художеств им. Ильи Репина',
+        links: [
+            'https://artsacademy.ru/about_the_university/history/',
+            'https://www.tg-m.ru/articles/2-2023-79/akademiya-khudozhestv-sssr-5-avgusta-1947-goda-25-maya-1992-goda',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургская_академия_художеств_имени_Ильи_Репина'
+        ],
+        vuzLink: 'https://www.artsacademy.ru/'
+    },
+    {
+        vuz: 'Российский государственный педагогический университет им. А.И. Герцена',
+        links: [
+            'https://cyberleninka.ru/article/n/rgpu-im-a-i-gertsena-stranitsy-istorii-1956-1966-gody',
+            'https://www.herzen.spb.ru/about/about_uni/history/',
+            'https://ru.wikipedia.org/wiki/Российский_государственный_педагогический_университет_имени_А._И._Герцена'
+        ],
+        vuzLink: 'https://www.herzen.spb.ru/'
+    },
+    {
+        vuz: 'Российский государственный институт сценических искусств',
+        links: [
+            'https://www.rgisi.ru/istoriya/',
+            'https://ru.wikipedia.org/wiki/Российский_государственный_институт_сценических_искусств#История',
+            'https://globalmsk.ru/catalog/id/18160',
+            'https://www.citywalls.ru/house3978.html'
+        ],
+        vuzLink: 'https://www.rgisi.ru/'
+    },
+    {
+        vuz: 'Национальный государственный Университет физической культуры, спорта и здоровья имени П.Ф. Лесгафта, Санкт-Петербург',
+        links: [
+            'http://lesgaft.spb.ru/ru/istoriya-ngu/istoriya-ngu-im-pf-lesgafta',
+            'https://docs.historyrussia.org/ru/nodes/215466-iz-soobscheniya-gazety-sovetskaya-kirgiziya-o-rabote-instituta-im-lesgafta-v-usloviyah-evakuatsii-v-g-frunze-i-o-vozvraschenii-ego-v-leningrad-18-avgusta-1944-g'
+        ],
+        vuzLink: 'http://lesgaft.spb.ru/'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный университет телекоммуникаций им. проф. М.А. Бонч-Бруевича',
+        links: [
+            'https://www.it-world.ru/it-news/market/156654.html',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_университет_телекоммуникаций_имени_профессора_М._А._Бонч-Бруевича#История',
+            'https://www.sut.ru/university/about/istoriya',
+            'https://gryppa54y.narod.ru/b1.htm'
+        ],
+        vuzLink: 'https://www.sut.ru/'
+    },
+    {
+        vuz: 'Санкт-Петербургская консерватория имени Н. А. Римского-Корсакова',
+        links: [
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургская_консерватория_имени_Н._А._Римского-Корсакова#История',
+            'https://www.conservatory.ru/about-conservatory',
+            'https://gufo.me/dict/music_encyclopedia/Ленинградская_консерватория'
+        ],
+        vuzLink: 'https://www.conservatory.ru/'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный технологический институт (технический университет)',
+        links: [
+            'https://technolog.edu.ru/universitet/history/period/1945',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_технологический_институт#История'
+        ],
+        vuzLink: 'https://technolog.edu.ru/'
+    },
+    {
+        vuz: 'Федеральное государственное бюджетное образовательное учреждение высшего образования «Первый Санкт-Петербургский государственный медицинский университет имени Павлова Ивана Петровича»',
+        links: [
+            'https://ru.wikipedia.org/wiki/Первый_Санкт-Петербургский_государственный_медицинский_университет_имени_академика_И._П._Павлова#История',
+            'https://www.1spbgmu.ru/universitet/istoriya',
+            'https://www.lvkgmu.ru/cpbgmu.html',
+            'http://www.medline.ru/public/histm/medmono/100/13.phtml',
+            'https://бмэ.орг/index.php/ЛЕНИНГРАДСКИЙ_1-Й_МЕДИЦИНСКИЙ_ИНСТИТУТ'
+        ],
+        vuzLink: 'https://www.1spbgmu.ru/'
+    },
+    {
+        vuz: 'Северо-Западный государственный медицинский университет имени И. И. Мечникова',
+        links: [
+            'https://fbuz41.ru/stats/88007/',
+            'https://szgmu.ru/rus/s/1/#Послевоенный%20период',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургская_государственная_медицинская_академия_имени_И._И._Мечникова#История',
+            'https://бмэ.орг/index.php/ЛЕНИНГРАДСКИЙ_САНИТАРНО-ГИГИЕНИЧЕСКИЙ_МЕДИЦИНСКИЙ_ИНСТИТУТ'
+        ],
+        vuzLink: 'https://szgmu.ru/'
+    },
+    {
+        vuz: 'Военная академия связи имени Маршала Советского Союза С. М. Будённого',
+        links: [
+            'https://vas.mil.ru/O_VUZe/Istoriya',
+            'https://ru.wikipedia.org/wiki/Военная_академия_связи_имени_С._М._Будённого',
+            'https://vk.com/@-133441491-voennaya-akademiya-svyazi-imeni-marshala-sovetskogo-souza-sm'
+        ],
+        vuzLink: 'https://vas.mil.ru/'
+    },
+    {
+        vuz: 'Ленинградский электротехнический институт',
+        links: [
+            'https://etu.ru/ru/muzej/istoriya-spbgetu/',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_электротехнический_университет#История',
+            'https://gufo.me/dict/bse/Ленинградский_электротехнический_институт'
+        ],
+        vuzLink: 'https://etu.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный лесотехнический университет им. С. М. Кирова',
+        links: [
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_лесотехнический_университет#История',
+            'https://spbftu.ru/university/about-the-university/history'
+        ],
+        vuzLink: 'https://spbftu.ru'
+    },
+    {
+        vuz: 'Горный институт',
+        links: [
+            'https://gufo.me/dict/bse/Ленинградский_горный_институт',
+            'https://spmi.ru/istoria-gornogo',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_горный_университет#История',
+            'https://gufo.me/dict/mining_encyclopedia/Ленинградский_горный_институт',
+            'https://www.prlib.ru/history/619681'
+        ],
+        vuzLink: 'https://spmi.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный университет',
+        links: [
+            'https://spbu.ru/history',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_университет#История',
+            'https://gufo.me/dict/bse/Ленинградский_университет'
+        ],
+        vuzLink: 'https://spbu.ru'
+    },
+    {
+        vuz: 'Институт точной механики и оптики',
+        links: [
+            'https://ru.wikipedia.org/wiki/Университет_ИТМО',
+            'https://ru.wikipedia.org/wiki/История_Университета_ИТМО',
+            'https://itmo.ru/ru/page/211/istoriya_universiteta_itmo.htm',
+            'https://mbradio.ru/publication/4708',
+            'https://gufo.me/dict/bse/Ленинградский_институт_точной_механики_и_оптики'
+        ],
+        vuzLink: 'https://itmo.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский политехнический университет Петра Великого',
+        links: [
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_политехнический_университет_Петра_Великого#История',
+            'https://www.spbstu.ru/university/about-the-university/history/'
+        ],
+        vuzLink: 'https://www.spbstu.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский военно-технический университет',
+        links: [
+            'https://ru.wikipedia.org/wiki/Балтийский_государственный_технический_университет_«Военмех»#История',
+            'https://www.voenmeh.ru/university/history'
+        ],
+        vuzLink: 'https://www.voenmeh.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный университет промышленных технологий и дизайна',
+        links: [
+            'https://sutd.ru/universitet/history/',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_университет_промышленных_технологий_и_дизайна#История',
+            'https://gufo.me/dict/bse/Ленинградский_институт_текстильной_и_лёгкой_промышленности',
+            'https://sutd.ru/prazdnik-pobedy/universiet_v_gody_voyny/'
+        ],
+        vuzLink: 'https://sutd.ru'
+    },
+    {
+        vuz: 'Можайская военная академия',
+        links: [
+            'https://ru.wikipedia.org/wiki/Военно-космическая_академия_имени_А._Ф._Можайского#История',
+            'https://vka.mil.ru/O_vuze/Istoriya',
+            'https://vm.ric.mil.ru/Stati/item/373819/'
+        ],
+        vuzLink: 'https://vka.mil.ru'
+    },
+    {
+        vuz: 'Санкт-Петербургский государственный архитектурно-строительный университе',
+        links: [
+            'https://www.spbgasu.ru/university/',
+            'https://docs.yandex.ru/docs/view?tm=1714303736&tld=ru&lang=ru&name=6.pdf&text=спбгасу%20история&url=https%3A%2F%2Fhistory.so.spb.ru%2Ffiles%2F6.pdf&lr=2&mime=pdf&l10n=ru&sign=b1620811a0b15ef946f0963229537b2b&keyno=0&nosw=1&serpParams=tm%3D1714303736%26tld%3Dru%26lang%3Dru%26name%3D6.pdf%26text%3D%25D1%2581%25D0%25BF%25D0%25B1%25D0%25B3%25D0%25B0%25D1%2581%25D1%2583%2B%25D0%25B8%25D1%2581%25D1%2582%25D0%25BE%25D1%2580%25D0%25B8%25D1%258F%26url%3Dhttps%253A%2F%2Fhistory.so.spb.ru%2Ffiles%2F6.pdf%26lr%3D2%26mime%3Dpdf%26l10n%3Dru%26sign%3Db1620811a0b15ef946f0963229537b2b%26keyno%3D0%26nosw%3D1',
+            'https://research-journal.org/archive/4-118-2022-april/istoriya-razvitiya-sankt-peterburgskogo-gosudarstvennogo-arxitekturno-stroitelnogo-universiteta',
+            'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_архитектурно-строительный_университет#Институт_после_1917_года'
+        ],
+        vuzLink: 'https://www.spbgasu.ru/'
+    },
+    {
+        vuz: 'Петербургский государственный университет путей сообщения Императора Александра I',
+        links: [
+            'https://www.pgups.ru/university/the-university-today/history/university-after-1917.php',
+            'https://ru.wikipedia.org/wiki/Петербургский_государственный_университет_путей_сообщения#История'
+        ],
+        vuzLink: 'https://www.pgups.ru/'
+    }
+]
