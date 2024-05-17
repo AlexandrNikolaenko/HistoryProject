@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/map.css">
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ea3dfc4c-21ff-48da-92f3-baabcff57c66" type="text/javascript"></script>
-    <script type="module" src="../js/map.js"></script>
+    <link rel="stylesheet" href="../css/history.css">
     <title>Document</title>
 </head>
 <body>
@@ -32,38 +30,7 @@
             </nav>
         </div>
     </header>
-    <section class="info">
-        <div class="wrapper">
-            <div class="lit-wrapper">
-                <h1 class="left-animate-onload">Университеты Ленинграда</h1>
-                <h3 class="left-animate-onload">(расположение и краткое описание)</h3>
-            </div>
-            <p class="left-animate-onload">На данной странице отмечено расположение главных корпусов высших учебных заведений Ленинграда на карте современного Санкт-Петербурга.<br>
-                Также вы можете увидеть университеты Ленинграда, представленные в виде списка.<br>
-                Нажав на метку на карте вы получите краткую сводку об университете из списка, нажав на которую попадете на страницу университета.<br>
-                В списке вы можете использовать фильтр по направлению образования.</p>
-            <div class="show-choise">
-                <div class="choise">
-                    <div class="choise-item left-animate-onload" id="byMap">На карте</div>
-                    <div class="choise-item right-animate-onload" id="byList">Списком</div>
-                </div>
-                <div class="line"></div>
-                <div class="change-box">
-                    <div class="map">
-                        <div id="place_for_text">
-                            <h3 class="be_remove left-animate-onload">Выберите университет на карте</h3>
-                            <p class="be_remove left-animate-onscroll">и получите краткую информацию и ссылку на университет. На карте отмечены только главные корпуса университетов.</p>
-                        </div>
-                        <div id="map"></div>
-                    </div>
-                    <div id="list-box">
-                        <div id="list">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
     <footer>
         <div class="lit-wrapper">
             <div class="footer-content">
@@ -116,5 +83,6 @@
         </div>
     </footer>
     <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/history.js"></script>
 </body>
 </html>
