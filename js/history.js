@@ -5,14 +5,12 @@ var condition = {openElem: null};
 const years = ['4554', '5564', '6574', '7584', '8591'];
 
 class ChronoElement{
-    constructor(text, url, id, section, position, arrow){
+    constructor(text, url, id, section, position){
         this.position = {top: position.top, left: position.left};
         this.text = text;
         this.imgUrl = url;
         this.number = id;
         this.parent = section;
-        // if (arrow.startPoint) this.startPoint = arrow.startPoint;
-        // if (arrow.endPoint) this.endPoint = arrow.startPoint;
     }
 
     createOpenFact(){
@@ -20,7 +18,7 @@ class ChronoElement{
         let element = elt('div', {class: 'open-fact'},
             elt('div', {class: 'fact-wrap'}, 
                 elt('div', {class: 'full-img-block'}, elt('img', {src: this.imgUrl})),
-                elt('div', {class:'full-text-block'}, this.text),
+                elt('p', {class:'full-text-block'}, this.text),
                 close
             )
         );
@@ -36,8 +34,8 @@ class ChronoElement{
     createElem(){
         let element = elt('div', {class: 'fact-block', id: this.number}, 
             elt('div', {class: 'fact-img-block'}, elt('img', {src: this.imgUrl})),
-            elt('div', {class: 'fact-short-text'}, this.text.slice(0, 99).concat('...'))
-        )
+            elt('p', {class: 'fact-short-text'}, this.text.slice(0, 99).concat('...'))
+        );
         element.addEventListener('click', () => {
             if (condition.openElem) condition.openElem.remove();
             this.createOpenFact();
@@ -49,10 +47,12 @@ class ChronoElement{
 }
 
 class Chronolent{
-    constructor(startPoint, width){
+    constructor(startPoint, width, largeDelta, littleDelta){
         this.storageValue = 0;
         this.startPoint = startPoint;
         this.windowWidth = width;
+        this.largeDelta = largeDelta;
+        this.littleDelta = littleDelta;
     }
 
     lentFunc(x){
@@ -69,16 +69,17 @@ class Chronolent{
         parent.style['padding-bottom'] = `${padding}px`;
         historyFacts.forEach(fact => {
             if (fact.year == year){
-                let element = new ChronoElement(fact.fulltext, fact.imgLink, historyFacts.indexOf(fact), parent, {top: this.startPoint - this.storageValue, left: this.lentFunc(this.startPoint)});
-                padding += 210
-                this.startPoint += element.createElem().getBoundingClientRect().height + 10;
+                console.log(this.startPoint, this.lentFunc(this.startPoint));
+                let element = new ChronoElement(fact.fulltext, fact.imgLink, historyFacts.indexOf(fact), parent, {top: this.startPoint - this.storageValue + this.largeDelta, left: this.lentFunc(this.startPoint)});
+                padding += 200 + this.littleDelta;
+                this.startPoint += element.createElem().getBoundingClientRect().height + this.littleDelta;
             }
         });
-        this.startPoint += 65;
-        parent.style['margin-bottom'] = `${padding - 10}px`;
+        this.startPoint += this.largeDelta;
+        parent.style['padding-bottom'] = `${padding - this.littleDelta}px`;
         this.storageValue = this.startPoint;
     }
 }
 
-let lenta = new Chronolent(60, 1240-427);
+let lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 427, 85, 10);
 lenta.createLent();

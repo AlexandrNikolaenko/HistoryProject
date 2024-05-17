@@ -30,7 +30,12 @@ p{
     font-size: 20px;
 }
 
+section{
+    padding-top: 7px;
+}
+
 section:first-child{
+    padding-top: 0px;
     margin-bottom: 50px;
 }
 
@@ -43,6 +48,7 @@ section:first-child{
     padding: 23px;
     background-color: var(--dark_color);
     border-radius: 13px;
+    cursor: pointer;
 }
 
 .fact-short-text{
@@ -66,7 +72,6 @@ section{
     left: 50%;
     z-index: 101;
     transform: translateX(-50%);
-    transition: display .2s;
     border-radius: 20px;
     border: var(--dark-stroke-style);
     background-color: var(--main_color);
@@ -74,8 +79,21 @@ section{
     overflow-y: scroll;
 }
 
+.full-img-block{
+    height: 300px;
+}
+
+.full-img-block>img{
+    width: auto;
+    height: 100%;
+}
+
 .fact-wrap{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
 }
 
 .close{
@@ -91,6 +109,10 @@ section{
     rotate: 180deg;
 }
 
-.full-img-block{
+.fact-short-text{
+    font-size: 14px;
+}
 
+footer{
+    margin-top: 50px;
 }

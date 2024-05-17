@@ -103,7 +103,8 @@ class Header{
         for (let ever of this.universities){
             let groupName = ever;
             let elem = elt('li', {'class': 'menu_item'}, elt('p', null, groupName));
-            elem.addEventListener('click', function () {
+            elem.addEventListener('click', function (event) {
+                event.preventDefault();
                 if (conditions.openElement && conditions.openElement != elem){
                     conditions.openElement.removeChild(conditions.openElement.childNodes[1]);}
                 if (elem.childNodes.length == 1){
