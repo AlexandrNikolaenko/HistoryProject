@@ -497,7 +497,6 @@ export let sourses = [
         vuz: 'Санкт-Петербургский государственный архитектурно-строительный университе',
         links: [
             'https://www.spbgasu.ru/university/',
-            'https://docs.yandex.ru/docs/view?tm=1714303736&tld=ru&lang=ru&name=6.pdf&text=спбгасу%20история&url=https%3A%2F%2Fhistory.so.spb.ru%2Ffiles%2F6.pdf&lr=2&mime=pdf&l10n=ru&sign=b1620811a0b15ef946f0963229537b2b&keyno=0&nosw=1&serpParams=tm%3D1714303736%26tld%3Dru%26lang%3Dru%26name%3D6.pdf%26text%3D%25D1%2581%25D0%25BF%25D0%25B1%25D0%25B3%25D0%25B0%25D1%2581%25D1%2583%2B%25D0%25B8%25D1%2581%25D1%2582%25D0%25BE%25D1%2580%25D0%25B8%25D1%258F%26url%3Dhttps%253A%2F%2Fhistory.so.spb.ru%2Ffiles%2F6.pdf%26lr%3D2%26mime%3Dpdf%26l10n%3Dru%26sign%3Db1620811a0b15ef946f0963229537b2b%26keyno%3D0%26nosw%3D1',
             'https://research-journal.org/archive/4-118-2022-april/istoriya-razvitiya-sankt-peterburgskogo-gosudarstvennogo-arxitekturno-stroitelnogo-universiteta',
             'https://ru.wikipedia.org/wiki/Санкт-Петербургский_государственный_архитектурно-строительный_университет#Институт_после_1917_года'
         ],

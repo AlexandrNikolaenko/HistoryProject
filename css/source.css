@@ -1,0 +1,31 @@
+h2{
+    font-size: 54px;
+    font-weight: 700;
+    margin-bottom: 13px;
+}
+
+section{
+    background: url(../img/sources-fon.png) no-repeat top right;
+    background-attachment: fixed;
+}
+
+.title{
+    padding-top: 255px;
+    padding-bottom: 50px;
+}
+
+.sourse-block>h5{
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+.sourse-block>p{
+    font-size: 20px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    padding-left: 12px;
+}
+
+.sourse-block{
+    padding-bottom: 30px;
+}
