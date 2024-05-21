@@ -511,3 +511,34 @@ export let sourses = [
         vuzLink: 'https://www.pgups.ru/'
     }
 ]
+
+export let persons = [
+    {
+        name: 'Павел Васильевич Шмаков',
+        link: 'https://ru.wikipedia.org/wiki/Шмаков,_Павел_Васильевич'
+    },
+    {
+        name: 'Василий Иванович Неганов',
+        link: 'https://ru.wikipedia.org/wiki/Неганов,_Василий_Иванович'
+    },
+    {
+        name: 'Илья Александрович Мусин',
+        link: 'https://ru.wikipedia.org/wiki/Мусин,_Илья_Александрович'
+    },
+    {
+        name: 'Дмитрий Аркадьевич Жданов',
+        link: 'https://ru.wikipedia.org/wiki/Жданов,_Дмитрий_Аркадьевич'
+    },
+    {
+        name: 'Сергей Викторович Аничков',
+        link: 'https://ru.wikipedia.org/wiki/Аничков,_Сергей_Викторович'
+    },
+    {
+        name: 'Фёдор Григорьевич Углов',
+        link: 'https://ru.wikipedia.org/wiki/Углов,_Фёдор_Григорьевич'
+    },
+    {
+        name: 'Юрий Яковлевич Юров',
+        link: 'https://ru.wikipedia.org/wiki/Юров,_Юрий_Яковлевич'
+    }
+]
