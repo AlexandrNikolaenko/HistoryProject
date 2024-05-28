@@ -3,7 +3,7 @@ import { elt } from "./modules.js";
 import { categoryList } from "./modules.js";
 
 // ячейка хранения стостояний некоторых элементов
-var conditions = {openElement: null};
+var conditions = {openElement: null, clickLink: null};
 
 // представляет собой весь функционал хедера
 class Header{
@@ -104,6 +104,11 @@ class Header{
             let groupName = ever;
             let elem = elt('li', {'class': 'menu_item'}, elt('p', null, groupName));
             elem.addEventListener('click', function (event) {
+                if (conditions.clickLink){
+                    conditions.clickLink = null;
+                    console.log('none');
+                    return;
+                };
                 event.preventDefault();
                 if (conditions.openElement && conditions.openElement != elem){
                     conditions.openElement.removeChild(conditions.openElement.childNodes[1]);}
@@ -113,11 +118,13 @@ class Header{
                     univWrap.style.position = 'absolute';
                     dataList.filter((vuz) => vuz.category == ever).forEach((vuz) => {
                         if (document.getElementsByTagName('body')[0].hasAttribute('index')){
-                            univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university))));
+                            let link = elt('a', {'href': `./pages/${vuz.pageLink}`}, elt('div', null, vuz.university));
+                            link.addEventListener('click', () => conditions.clickLink = true);
+                            univWrap.appendChild(elt('li', {class: 'vuz-name'}, link));
                         }else{
-                            univWrap.appendChild(elt('li', {class: 'vuz-name'},
-                            elt('a', {'href': `../${vuz.pageLink}`}, elt('div', null, vuz.university))));
+                            let link = elt('a', {'href': `./${vuz.pageLink}`}, elt('div', null, vuz.university));
+                            link.addEventListener('click', () => conditions.clickLink = true);
+                            univWrap.appendChild(elt('li', {class: 'vuz-name'}, link));
                         }
                     });
                     elem.appendChild(univWrap);

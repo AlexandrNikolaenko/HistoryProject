@@ -45,3 +45,51 @@
     font-size: 20px;
     line-height: 157%;
 }
+
+@media screen and (width < 875px) {
+    #main-text-block>p{
+        font-size: 18px;
+    }
+}
+
+@media screen and (width < 768px){
+    .first-sec>p{
+        font-size: 28px;
+    }
+
+    #main-text-block>p{
+        font-size: 18px;
+    }
+
+    #can-list>p, #can-list>li{
+        font-size: 18px;
+    }
+}
+
+@media screen and (width < 644px) {
+    .first-sec>p{
+        font-size: 24px;
+    }
+
+    #main-text-block>p{
+        font-size: 16px;
+    }
+
+    #can-list>p, #can-list>li{
+        font-size: 16px;
+    }
+}
+
+@media screen and (width < 453px) {
+    .first-sec>p{
+        font-size: 22px;
+    }
+
+    #main-text-block>p{
+        font-size: 14px;
+    }
+
+    #can-list>p, #can-list>li{
+        font-size: 14px;
+    }
+}

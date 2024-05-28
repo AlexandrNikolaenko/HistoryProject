@@ -143,9 +143,94 @@ header{
     background-size: 100% 2px;
 }
 
+footer{
+    background-color: var(--dark_color);
+}
+
+.footer-content{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 35px 0;
+}
+
+.footer-info{
+    display: flex;
+    flex-direction: column;
+    row-gap: 26px;
+}
+
+.footer-contacts>p{
+    font-size: 20px;
+    padding-bottom: 9px;
+}
+
+.contacts{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 13px;
+}
+
+.names{
+    display: flex;
+    flex-direction: column;
+    height: 127px;
+    justify-content: space-between;
+}
+
+.names>li>p{
+    font-size: 16px;
+}
+
+.media{
+    display: flex;
+    flex-direction: column;
+    height: 127px;
+    justify-content: space-between;
+}
+
+.media>li{
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+
+.footer-link{
+    font-size: 20px;
+}
+
+.line{
+    width: 100%;
+    height: 3px;
+    border-radius: 50%;
+    background-color: var(--white_color);
+}
+
+@media screen and (width < 1300px){
+    .wrapper, .lit-wrapper{
+        margin: 0 15px;
+    }
+    h1{
+        font-size: 54px;
+    }
+}
+
 @media screen and (width <= 768px) {
+    li, p{
+        font-size: 14px;
+    }
+
     header{
-        position: absolute;
+        padding: 10px 0;
+    }
+
+    .navigation{
+        column-gap: 0;
+        width: 320px;
+        justify-content: space-between;
+    }
+
+    .header_text{
+        font-size: 14px;
     }
 
     #menu-list{
@@ -164,6 +249,7 @@ header{
     
     #menu-lines{
         transition: 0.3s all;
+        transform: scale(.8);
     }
     
     .vuz-box{
@@ -187,6 +273,12 @@ header{
     .menu_item:hover, .vuz-name:hover{
         background-color: var(--active-menu);
     }
+
+    h1{
+        font-size: 48px;
+    }
+
+    
 }
 
 @media screen and (width > 768px){
@@ -194,8 +286,6 @@ header{
         display: grid;
         grid-template-columns: auto 18px;
         align-items: center;
-        /* flex-wrap: wrap;
-        flex-direction: row; */
         column-gap: 14px;
         cursor: pointer;
     }
@@ -262,64 +352,73 @@ header{
     }
 }
 
-footer{
-    background-color: var(--dark_color);
+@media screen and (width < 875px) {
+    .footer-content{
+        display: flex;
+        justify-content: space-between;
+        row-gap: 26px;
+    }
 }
 
-.footer-content{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 35px 0;
+@media screen and (width < 644px) {
+    .footer-content{
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 26px;
+    }
+
+    .footer-link{
+        font-size: 16px;
+    }
+
+    .footer-contacts>p{
+        font-size: 16px;
+    }
+
+    .names>li>p{
+        font-size: 14px;
+    }
 }
 
-.footer-info{
-    display: flex;
-    flex-direction: column;
-    row-gap: 26px;
-}
+@media screen and (width < 453px) {
+    h1{
+        font-size: 40px;
+    }
 
-.footer-contacts>p{
-    font-size: 20px;
-    padding-bottom: 9px;
-}
+    header{
+        padding: 7px 0;
+    }
 
-.contacts{
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 13px;
-}
+    .footer-contacts{
+        overflow-x: scroll;
+    }
 
-.names{
-    display: flex;
-    flex-direction: column;
-    height: 127px;
-    justify-content: space-between;
-}
+    .contacts{
+        min-width: 423px;
+    }
 
-.names>li>p{
-    font-size: 16px;
-}
+    .footer-link{
+        font-size: 14px;
+    }
 
-.media{
-    display: flex;
-    flex-direction: column;
-    height: 127px;
-    justify-content: space-between;
-}
+    .footer-contacts>p{
+        font-size: 14px;
+    }
 
-.media>li{
-    display: flex;
-    flex-direction: row;
-    column-gap: 15px;
-}
+    .names>li>p{
+        font-size: 12px;
+    }
 
-.footer-link{
-    font-size: 20px;
-}
+    #menu-lines{
+        transition: 0.3s all;
+        transform: scale(.6);
+    }
 
-.line{
-    width: 100%;
-    height: 3px;
-    border-radius: 50%;
-    background-color: var(--white_color);
+    .navigation{
+        width: 260px;
+    }
+
+    .header_text{
+        font-size: 12px;
+    }
 }
