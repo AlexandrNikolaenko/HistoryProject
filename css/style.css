@@ -209,9 +209,6 @@ footer{
     .wrapper, .lit-wrapper{
         margin: 0 15px;
     }
-    h1{
-        font-size: 54px;
-    }
 }
 
 @media screen and (width <= 768px) {
@@ -236,7 +233,6 @@ footer{
     #menu-list{
         position: absolute;
         border-radius: 4px;
-        /* overflow: hidden; */
     }
     
     .menu_item{
@@ -248,7 +244,6 @@ footer{
     }
     
     #menu-lines{
-        transition: 0.3s all;
         transform: scale(.8);
     }
     
@@ -377,6 +372,10 @@ footer{
 
     .names>li>p{
         font-size: 14px;
+    }
+
+    #menu-lines{
+        transform: scale(.7);
     }
 }
 

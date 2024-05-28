@@ -47,20 +47,35 @@ class ChronoElement{
 }
 
 class Chronolent{
-    constructor(startPoint, width, largeDelta, littleDelta){
+    constructor(startPoint, width, largeDelta, littleDelta, linear){
         this.storageValue = 0;
         this.startPoint = startPoint;
         this.windowWidth = width;
         this.largeDelta = largeDelta;
         this.littleDelta = littleDelta;
+        this.linear = linear;
     }
 
     lentFunc(x){
         return  (this.windowWidth / 2) * (1 - Math.cos(2*(x - 60)));
     }
 
+    createLineBlock(year){
+        let parent = document.getElementById(year);
+        historyFacts.forEach(fact => {
+            if (fact.year == year){
+                let element = new ChronoElement(fact.fulltext, fact.imgLink, historyFacts.indexOf(fact), parent, {top: this.startPoint - this.storageValue + this.largeDelta, left: this.lentFunc(this.startPoint)});
+                element.createElem()
+            }
+        });
+    }
+
     createLent(){
-        years.forEach(year => this.createBlock(year))
+        if (this.linear){
+            years.forEach(year => this.createLineBlock(year));
+        }else{
+            years.forEach(year => this.createBlock(year));
+        }
     }
 
     createBlock(year){
@@ -69,7 +84,6 @@ class Chronolent{
         parent.style['padding-bottom'] = `${padding}px`;
         historyFacts.forEach(fact => {
             if (fact.year == year){
-                console.log(this.startPoint, this.lentFunc(this.startPoint));
                 let element = new ChronoElement(fact.fulltext, fact.imgLink, historyFacts.indexOf(fact), parent, {top: this.startPoint - this.storageValue + this.largeDelta, left: this.lentFunc(this.startPoint)});
                 padding += 200 + this.littleDelta;
                 this.startPoint += element.createElem().getBoundingClientRect().height + this.littleDelta;
@@ -81,5 +95,14 @@ class Chronolent{
     }
 }
 
-let lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 427, 85, 10);
+let width = document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width;
+if (width > 1300){
+    var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 427, 85, 10, false);
+}else if (width <= 457){
+    var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 457, 85, 10, true);
+}else{
+    var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 457, 85, 10, false);
+    
+}
+
 lenta.createLent();

@@ -116,3 +116,87 @@ section{
 footer{
     margin-top: 50px;
 }
+
+@media screen and (width < 1300px){
+    h1, h2{
+        font-size: 54px;
+    }
+    h3{
+        font-size: 42px;
+    }
+    p{
+        font-size: 18px;
+    }
+}
+
+@media screen and (width <= 768px) {
+    p{
+        font-size: 16px;
+    }
+    h2{
+        font-size: 48px;
+    }
+    h3{
+        font-size: 36px;
+    }
+}
+
+@media screen and (width < 644px) {
+    p{
+        font-size: 14px;
+    }
+    h2{
+        font-size: 42px;
+    }
+    h3{
+        font-size: 32px;
+    }
+    .fact-short-text{
+        font-size: 13px;
+    }
+}
+
+@media screen and (width < 457px) {
+    p{
+        font-size: 14px;
+    }
+    h2{
+        font-size: 40px;
+    }
+    h3{
+        font-size: 26px;
+    }
+    .fact-block{
+        position: static;
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+        height: auto;
+        margin-top: 23px;
+    }
+    .fact-img-block{
+        justify-self: center;
+    }
+
+    .open-fact{
+        position: fixed;
+        padding: 40px;
+        top: 0;
+        left: 50%;
+        z-index: 101;
+        transform: translateX(-50%);
+        border-radius: 0;
+        border: initial;
+        background-color: var(--main_color);
+        height: 100%;
+        width: 100%;
+        overflow-y: scroll;
+    }
+
+    .fact-wrap{
+        margin: 0 auto;
+    }
+
+    .full-img-block{
+        padding-top: 35px;
+    }
+}
