@@ -283,6 +283,54 @@ class newAnimation{
             this.process(condition, delta, false, 'left');
         }, 1000 / 120); 
     }
+    // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
+    async opacityLeftMoveOnscroll(time){
+        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
+        this.animatedObject.style.left = `${condition.x}px`;
+        this.animatedObject.style.top = `${condition.y}px`;
+        this.animatedObject.style.opacity = `${condition.opacity}`;
+        let delta = {x: Math.abs(this.endPlace.left - condition.x) / (120 * time), opac: 1 / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(this.endPlace.left - condition.x) <= delta.x){
+                clearInterval(anim);
+                this.animatedObject.style = "left: ''; top: ''; opacity: '';"
+                this.replace.remove();
+                this.animatedObject.style.position = this.position;
+                return;
+            };
+            try{
+                this.process(condition, delta, true, 'left');
+            }catch (e){
+                console.log(e);
+                condition.x = this.endPlace.left;
+            }
+            
+        }, 1000 / 120);
+    }
+// Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
+    async opacityRightMoveOnscroll(time){
+        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
+        this.animatedObject.style.right = `${condition.x}px`;
+        this.animatedObject.style.top = `${condition.y}px`;
+        this.animatedObject.style.opacity = `${condition.opacity}`;
+        let delta = {x: Math.abs(this.endPlace.right - condition.x) / (120 * time), opac: 1 / (120 * time)};
+        let anim = setInterval(() => {
+            if (Math.abs(this.endPlace.right - condition.x) <= delta.x){
+                clearInterval(anim);
+                this.animatedObject.style = "right: ''; top: ''; opacity: '';"
+                this.replace.remove();
+                this.animatedObject.style.position = this.position;
+                document.getElementsByTagName('body')[0].removeAttribute('style');
+                return;
+            };
+            try{
+                this.process(condition, delta, true, 'right');
+            }catch (e){
+                console.log(e);
+                condition.x = this.endPlace.right;
+            }
+        }, 1000 / 120);
+    }
 
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityLeftMoveOnload(time){
@@ -307,6 +355,7 @@ class newAnimation{
             }
             
         }, 1000 / 120);
+        console.log('done');
     }
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityRightMoveOnload(time){
@@ -331,6 +380,7 @@ class newAnimation{
                 condition.x = this.endPlace.right;
             }
         }, 1000 / 120); 
+        console.log('done');
     }
 }
 
@@ -363,6 +413,7 @@ if (document.documentElement.clientWidth <= 768){
 }
 
 async function createAnimate(timer){
+    // делаем анимацию текста
     for (let animElem of document.getElementsByClassName('left-animate-onload')){
         let animation = new newAnimation(animElem);
         animation.opacityStartPosition();
@@ -378,7 +429,7 @@ async function createAnimate(timer){
         animation.opacityStartPosition();
         let func = async function () {
             if (window.innerHeight >= animElem.getBoundingClientRect().y){
-                await animation.opacityLeftMoveOnload(timer);
+                await animation.opacityLeftMoveOnscroll(timer);
                 window.removeEventListener('scroll', func);
             }
         }
@@ -389,12 +440,13 @@ async function createAnimate(timer){
         animation.opacityStartPosition();
         let func = async function () {
             if (window.innerHeight >= animElem.getBoundingClientRect().y){
-                await animation.opacityRightMoveOnload(timer);
+                await animation.opacityRightMoveOnscroll(timer);
                 window.removeEventListener('scroll', func);
             }
         }
         window.addEventListener('scroll', func);
     }  
+    // делаем анимацию фактов
     if (document.getElementsByTagName('body')[0].hasAttribute('vuz')){
         let crops = {
             leftOnload: document.getElementsByClassName('left-crop-animate-onload'),

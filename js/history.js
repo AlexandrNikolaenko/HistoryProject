@@ -98,10 +98,10 @@ class Chronolent{
 let width = document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width;
 if (width > 1300){
     var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 427, 85, 10, false);
-}else if (width <= 457){
+}else if (width < 456){
     var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 457, 85, 10, true);
 }else{
-    var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 457, 85, 10, false);
+    var lenta = new Chronolent(0, document.getElementsByClassName('wrapper')[0].getBoundingClientRect().width - 427, 85, 10, false);
     
 }
 

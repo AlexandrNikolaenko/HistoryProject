@@ -5,7 +5,6 @@ body{
     background-attachment: fixed;
 }
 
-
 h2{
     font-size: 64px;
     font-weight: bold;
@@ -118,7 +117,7 @@ footer{
 }
 
 @media screen and (width < 1300px){
-    h1, h2{
+    h2{
         font-size: 54px;
     }
     h3{

@@ -78,7 +78,6 @@
 
 body{
     background-color: var(--main_color);
-    overflow-x: hidden;
     font-family: var(--main-font);
 }
 
@@ -212,7 +211,7 @@ footer{
 }
 
 @media screen and (width <= 768px) {
-    li, p{
+    li, p, .menu_item>p{
         font-size: 14px;
     }
 
@@ -233,6 +232,7 @@ footer{
     #menu-list{
         position: absolute;
         border-radius: 4px;
+        background-color: var(--disactive-menu);
     }
     
     .menu_item{
@@ -258,6 +258,10 @@ footer{
         width: 121px;
         text-align: left;
     }
+
+    .vuz-box{
+        background-color: var(--disactive-menu);
+    }
     
     .vuz-name>a>div{
         width: 100%;
@@ -265,7 +269,7 @@ footer{
         padding-left: 6px;
     }
     
-    .menu_item:hover, .vuz-name:hover{
+    .menu_item:active, .vuz-name:active{
         background-color: var(--active-menu);
     }
 
@@ -417,7 +421,7 @@ footer{
         width: 260px;
     }
 
-    .header_text{
+    .header_text,.menu_item>p{
         font-size: 12px;
     }
 }
