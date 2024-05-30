@@ -139,13 +139,16 @@ class Header{
     }
     // открываем меню по клику
     openMobileMenu(){
+        let scale = Number(window.getComputedStyle(document.getElementById('menu-lines')).transform.split(', ')[3]);
         if (this.list.getAttribute('open') == "true") {
             this.list.style.display = 'none';
             this.list.setAttribute('open', "false");
-            document.getElementById('menu-lines').style.transform = 'rotate(0)';
+            document.getElementById('menu-lines').style.transform = `scale(${-scale}) rotate(0deg)`;
+            console.log('done');
             return;
-        }
-        document.getElementById('menu-lines').style.transform = 'rotate(180deg)';
+        };
+        document.getElementById('menu-lines').style.transform = `scale(${scale}) rotate(180deg)`;
+        console.log('done');
         this.list.style.display = 'block';
         this.list.setAttribute('open', "true");
     }
@@ -189,8 +192,13 @@ class newAnimation{
         this.animatedObject.style.top = `${this.endPlace.top}px`;
         this.animatedObject.before(this.replace);
         this.animatedObject.style.opacity = '0';
-        this.animatedObject.style.width = `${this.size.x}px`;
-        this.animatedObject.style.height = `${this.size.y}px`;
+        if (dir = 'left'){
+            this.animatedObject.style.width = `${this.size.x}px`;
+            this.animatedObject.style.height = `${this.size.y}px`;
+        }else{
+            this.animatedObject.style.width = `${0}px`;
+            this.animatedObject.style.height = `${this.size.y}px`;
+        }
     }
 
     moveFunction(x){
@@ -208,13 +216,16 @@ class newAnimation{
             this.animatedObject.style.left = `${condition.x + delta.x}px`;
             condition.x += delta.x;
         }else if(isOpacity && dir == 'right'){
-            document.getElementsByTagName('body')[0].style['max-width'] = document.documentElement.clientWidth;
-            Array.from(document.getElementsByTagName('section')).forEach((element) => element.style['max-width'] = document.documentElement.clientWidth);
-            document.getElementsByTagName('header')[0].style['max-width'] = document.documentElement.clientWidth;
+            document.getElementsByTagName('body')[0].style['width'] = `${document.documentElement.clientWidth}px`;
+            document.getElementsByTagName('header')[0].style.width = `${document.documentElement.clientWidth}px`;
             this.animatedObject.style.right = `${condition.x + delta.x}px`;
             this.animatedObject.style.opacity = `${this.moveFunction(condition.opacity + delta.opac)}`;
+            if (this.size.x > this.animatedObject.getBoundingClientRect().width){
+                this.animatedObject.style.right = `${condition.width}`
+            }
             condition.x += delta.x;
             condition.opacity += delta.opac;
+            console.log(document.getElementsByTagName('header')[0].getBoundingClientRect().width, document.getElementsByTagName('header')[0].getBoundingClientRect().bottom, window.innerHeight);
         }else if(!isOpacity && dir == 'right'){
             this.animatedObject.style.left = `${condition.x + delta.x}px`;
             condition.x += delta.x;            
@@ -384,7 +395,7 @@ class newAnimation{
 
 let menu = document.getElementById('menu');
 let body = document.getElementsByTagName('body')[0];
-if (document.documentElement.clientWidth <= 768){
+if (document.documentElement.clientWidth < 990){
     if (body.hasAttribute('index')){
         menu.appendChild(elt('img', {src: "./img/menu.svg", alt: "menu", id: "menu-lines", style: "cursor: pointer;"}));
     }else{
@@ -402,7 +413,7 @@ if (document.documentElement.clientWidth <= 768){
 }
 let header = new Header;
 header.backFon();
-if (document.documentElement.clientWidth <= 768){
+if (document.documentElement.clientWidth < 990){
     body.onload = function() {header.createMobileMenu();};
     document.getElementById('menu-lines').addEventListener('click', function() {header.openMobileMenu();});
 }else{
