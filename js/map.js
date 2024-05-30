@@ -148,6 +148,7 @@ function adaptive(){
         document.getElementById('map').style.width = `${win - 30}px`;
         document.getElementById('map').style.height = `${hei - document.getElementById('place_for_text').getBoundingClientRect().height - 40}px`;
         document.getElementById('list-box').style.width = `${win - 30}px`;
+        document.getElementById('list').style.height = `${hei}px`;
         document.getElementsByClassName('change-box')[0].style.height = `${hei}px`;
         document.getElementsByClassName('filter')[0].style.maxWidth = `${win - 30}px`;
         // Array.from(document.getElementsByClassName('filter-button')).forEach(filter => {
