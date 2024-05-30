@@ -192,13 +192,9 @@ class newAnimation{
         this.animatedObject.style.top = `${this.endPlace.top}px`;
         this.animatedObject.before(this.replace);
         this.animatedObject.style.opacity = '0';
-        if (dir = 'left'){
-            this.animatedObject.style.width = `${this.size.x}px`;
-            this.animatedObject.style.height = `${this.size.y}px`;
-        }else{
-            this.animatedObject.style.width = `${0}px`;
-            this.animatedObject.style.height = `${this.size.y}px`;
-        }
+        this.animatedObject.style.width = `${this.size.x}px`;
+        this.animatedObject.style.height = `${this.size.y}px`;
+        
     }
 
     moveFunction(x){
@@ -216,16 +212,10 @@ class newAnimation{
             this.animatedObject.style.left = `${condition.x + delta.x}px`;
             condition.x += delta.x;
         }else if(isOpacity && dir == 'right'){
-            document.getElementsByTagName('body')[0].style['width'] = `${document.documentElement.clientWidth}px`;
-            document.getElementsByTagName('header')[0].style.width = `${document.documentElement.clientWidth}px`;
             this.animatedObject.style.right = `${condition.x + delta.x}px`;
             this.animatedObject.style.opacity = `${this.moveFunction(condition.opacity + delta.opac)}`;
-            if (this.size.x > this.animatedObject.getBoundingClientRect().width){
-                this.animatedObject.style.right = `${condition.width}`
-            }
             condition.x += delta.x;
             condition.opacity += delta.opac;
-            console.log(document.getElementsByTagName('header')[0].getBoundingClientRect().width, document.getElementsByTagName('header')[0].getBoundingClientRect().bottom, window.innerHeight);
         }else if(!isOpacity && dir == 'right'){
             this.animatedObject.style.left = `${condition.x + delta.x}px`;
             condition.x += delta.x;            
@@ -235,7 +225,6 @@ class newAnimation{
     }
 
     async cropMove(time, dir){
-        // let wrapper = wrap(this.animatedObject);
         let condition = {scale: 0, y: this.endPlace.top + this.scroll - (this.size.y / 2), x: this.endPlace[dir] - (this.size.x / 2)};
         let delta = {scale: 1 / (120 * time), y: this.size.y / 2 / (120 * time), x: this.size.x / 2 / (120 * time)};
         let anim = setInterval(() => {
@@ -296,7 +285,7 @@ class newAnimation{
     }
     // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityLeftMoveOnscroll(time){
-        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
+        let condition = {opacity: 0, x: 0, y: this.endPlace.top + this.scroll};
         this.animatedObject.style.left = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
         this.animatedObject.style.opacity = `${condition.opacity}`;
@@ -320,7 +309,7 @@ class newAnimation{
     }
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityRightMoveOnscroll(time){
-        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
+        let condition = {opacity: 0, x: 0, y: this.endPlace.top + this.scroll};
         this.animatedObject.style.right = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
         this.animatedObject.style.opacity = `${condition.opacity}`;
@@ -345,7 +334,7 @@ class newAnimation{
 
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityLeftMoveOnload(time){
-        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
+        let condition = {opacity: 0, x: 0, y: this.endPlace.top + this.scroll};
         this.animatedObject.style.left = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
         this.animatedObject.style.opacity = `${condition.opacity}`;
@@ -369,7 +358,7 @@ class newAnimation{
     }
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityRightMoveOnload(time){
-        let condition = {opacity: 0, x: -this.size.x, y: this.endPlace.top + this.scroll};
+        let condition = {opacity: 0, x: 0, y: this.endPlace.top + this.scroll};
         this.animatedObject.style.right = `${condition.x}px`;
         this.animatedObject.style.top = `${condition.y}px`;
         this.animatedObject.style.opacity = `${condition.opacity}`;

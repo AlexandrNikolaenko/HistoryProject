@@ -210,7 +210,7 @@ footer{
     }
 }
 
-@media screen and (width <= 768px) {
+@media screen and (width < 990px) {
     li, p, .menu_item>p{
         font-size: 14px;
     }
@@ -242,9 +242,10 @@ footer{
         width: auto;
         text-align: center;
     }
-    
+
     #menu-lines{
-        transform: scale(.8);
+        transform: scale(1);
+        transition: transform 0.2s;
     }
     
     .vuz-box{
@@ -276,11 +277,35 @@ footer{
     h1{
         font-size: 48px;
     }
-
-    
 }
 
-@media screen and (width > 768px){
+@media screen and (width <= 768px) {
+    #menu-lines{
+        transform: scale(.8);
+    }
+}
+
+@media screen and (width < 1128px) {
+    h5{
+        font-size: 20px;
+    }
+    .vuz{
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (width < 1034px) {
+    h5{
+        font-size: 18px;
+    }
+    .vuz{
+        font-size: 13px;
+        line-height: 14px;
+    }
+}
+
+@media screen and (width >= 990px){
     .menu{
         display: grid;
         grid-template-columns: auto 18px;
@@ -296,7 +321,7 @@ footer{
 
     .menu>img{
         rotate: 0;
-        transition: rotate .3s;
+        transition: all .3s;
     }
 
     #menu-block{
@@ -309,7 +334,6 @@ footer{
     }
 
     #menu-list{
-        width: 100%;
         display: flex;
         max-width: 1240px;
         flex-wrap: wrap;
@@ -413,7 +437,6 @@ footer{
     }
 
     #menu-lines{
-        transition: 0.3s all;
         transform: scale(.6);
     }
 
