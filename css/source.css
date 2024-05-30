@@ -4,6 +4,14 @@ h2{
     margin-bottom: 13px;
 }
 
+p{
+    font-size: 20px;
+}
+
+a{
+    word-break: break-all;
+}
+
 section{
     background: url(../img/sources-fon.png) no-repeat top right;
     background-attachment: fixed;
@@ -28,4 +36,67 @@ section{
 
 .sourse-block{
     padding-bottom: 30px;
+}
+
+@media screen and (width < 1300px){
+    h2{
+        font-size: 54px;
+    }
+    .sourse-block>h5{
+        font-size: 24px;
+    }
+    .sourse-block>p, p{
+        font-size: 20px;
+    }
+    .vuzBlock, .personBlock{
+        padding-left: 34px;
+    }
+    .lit-wrapper{
+        margin-bottom: 7px;
+    }
+}
+
+@media screen and (width <= 768px) {
+    h2{
+        font-size: 48px;
+    }
+    .sourse-block>p, p{
+        font-size: 18px;
+    }
+    .sourse-block>h5{
+        font-size: 22px;
+    }
+    .vuzBlock, .personBlock{
+        padding-left: 30px;
+    }
+}
+
+@media screen and (width < 644px) {
+    h2{
+        font-size: 42px;
+    }
+    .sourse-block>p, p{
+        font-size: 16px;
+    }
+    .sourse-block>h5{
+        font-size: 20px;
+    }
+    .vuzBlock, .personBlock{
+        padding-left: 24px;
+    }
+}
+
+@media screen and (width < 457px) {
+    h2{
+        font-size: 40px;
+    }
+    .sourse-block>p, p{
+        font-size: 14px;
+    }
+    .sourse-block>h5{
+        font-size: 19px;
+    }
+    .vuzBlock, .personBlock{
+        padding-left: 20px;
+    }
 }
