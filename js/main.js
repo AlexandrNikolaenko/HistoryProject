@@ -355,7 +355,6 @@ class newAnimation{
             }
             
         }, 1000 / 120);
-        console.log('done');
     }
 // Когда вызываем эту функцию необходимо обнулить положение при помощи opacityStartPosition()
     async opacityRightMoveOnload(time){
@@ -379,8 +378,7 @@ class newAnimation{
                 console.log(e);
                 condition.x = this.endPlace.right;
             }
-        }, 1000 / 120); 
-        console.log('done');
+        }, 1000 / 120);
     }
 }
 

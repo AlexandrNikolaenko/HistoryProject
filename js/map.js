@@ -1,6 +1,9 @@
 import { elt, dataList, categoryList } from "./modules.js";
 
-let condition = {lastElem: null, scrollTop: false};
+let condition = {
+    lastElem: null,
+     scrollTop: false, 
+     height: cropFunc((document.getElementsByClassName('change-box')[0].getBoundingClientRect().height - document.getElementById('place_for_text').getBoundingClientRect().height) * (window.innerWidth - 30) / 1240) + document.getElementById('place_for_text').getBoundingClientRect().height + 40};
 
 function scrollButtom(dir){
     let box = document.getElementsByClassName('change-box')[0];
@@ -17,6 +20,11 @@ function scrollButtom(dir){
     }else return;
 }
 
+function cropFunc(x){
+    if (window.innerWidth < 435) return x**1.1;
+    return x;
+}
+
 ymaps.ready(function() {
     let newMap = new ymaps.Map('map', {
         center: [59.963826, 30.306760],
@@ -24,21 +32,6 @@ ymaps.ready(function() {
     }, {
         searchControlProvider: 'yandex#search'
     });
-
-    // Universities.findAll().then((list) => {
-    //     list.forEach((vuz) => {
-    //         let vuzPlacemark = new ymaps.Placemark(vuz.place, {
-    //             hintContent: vuz.fullname,
-    //             ballonContent: ''
-    //         })
-    //         vuzPlacemark.events.add('click', function() {
-    //             Array.from(document.getElementsByClassName('be_remove')).forEach((text) => text.remove());
-    //             let element = new ListandElements(document.getElementById('place_for_text'));
-    //             element.createElement(vuz.university, vuz.fullname, vuz.shortText, true);
-    //         })
-    //         newMap.geoObjects.add(vuzPlacemark);
-    //     })
-    // })
 
     dataList.forEach((vuz) => {
         let vuzPlacemark = new ymaps.Placemark([vuz.place.x, vuz.place.y], {
@@ -65,12 +58,16 @@ class ListandElements{
             console.log(once);
             this.place.removeChild(condition.lastElem);
         }
-        let block = elt('div', null, elt('a', {class: 'vuz-block', href: pageLink},
-            elt('div', {class: 'img-vuz-box'}, elt('img', {src: imgLink})),
-            elt('div', {class: 'text-vuz-box'}, 
-                elt('h3', null, vuz),
-                elt('p', null, fullname),
-                elt('p', null, shortText))));
+        let link = elt('a', {class: 'vuz-block', href: pageLink},
+        elt('div', {class: 'img-vuz-box'}, elt('img', {src: imgLink})),
+        elt('div', {class: 'text-vuz-box'}, 
+            elt('h3', null, vuz),
+            elt('p', null, fullname),
+            elt('p', null, shortText)));
+        if (window.innerWidth < 1300){
+            link.style.width = `${(window,innerWidth - 30)}px`;
+        }
+        let block = elt('div', {class: 'show-vuz'}, link);
         if (once){
             block.style.position = 'relative';
             this.place.appendChild(block);
@@ -81,15 +78,23 @@ class ListandElements{
                 console.log(def);
                 def.forEach(child => this.place.appendChild(child));
                 condition.lastElem = null;
+                document.getElementById('map').style.display = '';
             });
+            if (window.innerWidth < 1000){
+                document.getElementById('map').style.display = 'none';
+                block.style.maxHeight = `${condition.height}px`;
+                block.style.overflowY = 'scroll';
+                block.style.width = 'max-content';
+            }
             block.appendChild(close);
+            console.log('done');
         }else{
             return block;
         }
     }
 
     createList(data = dataList){
-        let filter = elt('div', {class: 'filter  lit-wrapper'});
+        let filter = elt('div', {class: 'filter wrapper'});
         let list = elt('ul', {class: 'vuz-list'}, filter);
         data.forEach((vuz) => {
             list.appendChild(elt('li', {class: 'list-elem'}, this.createElement(vuz.university, vuz.fullname, vuz.shortText, vuz.imgLink, `./${vuz.pageLink}`, false)));
@@ -97,14 +102,16 @@ class ListandElements{
         categoryList.forEach(category => {
             let button = elt('button', {class: 'filter-button'}, category);
             button.addEventListener('click', () => {
+                this.createList(dataList.filter(vuz => vuz.category === category))
                 this.place.removeChild(list);
-                this.createList(dataList.filter(vuz => vuz.category === category))});
+            });
             filter.appendChild(button);
         });
         let allButton = elt('button', {class: 'filter-button'}, 'Сброс')
         allButton.addEventListener('click', () => {
+            this.createList(dataList)
             this.place.removeChild(list);
-            this.createList(dataList)});
+        });
         filter.appendChild(allButton);
         this.place.appendChild(list);
     }
@@ -133,9 +140,30 @@ class ListandElements{
     }
 }
 
+function adaptive(){
+    let win = window.innerWidth;
+    let hei = (cropFunc(document.getElementsByClassName('change-box')[0].getBoundingClientRect().height - document.getElementById('place_for_text').getBoundingClientRect().height) * (win - 30) / 1240) + document.getElementById('place_for_text').getBoundingClientRect().height + 40;
+    if (win < 1300){
+        document.getElementsByClassName('map')[0].style.width = `${win - 30}px`;
+        document.getElementById('map').style.width = `${win - 30}px`;
+        document.getElementById('map').style.height = `${hei - document.getElementById('place_for_text').getBoundingClientRect().height - 40}px`;
+        document.getElementById('list-box').style.width = `${win - 30}px`;
+        document.getElementsByClassName('change-box')[0].style.height = `${hei}px`;
+        document.getElementsByClassName('filter')[0].style.maxWidth = `${win - 30}px`;
+        // Array.from(document.getElementsByClassName('filter-button')).forEach(filter => {
+        //     filter.style.transform = `scale(${(win - 30)/1240})`;
+        // });
+        Array.from(document.getElementsByClassName('vuz-block')).forEach(filter => {
+                filter.style.width = `${(win - 30)}px`;
+        });
+    }
+};
+
 let list = new ListandElements(document.getElementById('list'));
 list.createList();
 list.createUpButton();
+
+adaptive();
 
 document.getElementById('byMap').addEventListener('click', () => scrollButtom('map'));
 document.getElementById('byList').addEventListener('click', () => scrollButtom('list'));

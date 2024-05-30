@@ -60,20 +60,22 @@ h3{
     overflow-y: hidden;
     overflow-x: scroll;
     transition: all .2 ease-in-out;
-    /* justify-content: flex-end; */
 }
 
-.change-box::-webkit-scrollbar{
+.change-box::-webkit-scrollbar, .map::-webkit-scrollbar{
     display: none;
 }
 
 #map {
     z-index: 0;
-    width: 100%;
     width: 1240px;
     height: 630px;
     padding: 0;
     margin: 0;
+}
+
+.show-vuz::-webkit-scrollbar{
+    display: none;
 }
 
 #place_for_text{
@@ -138,6 +140,7 @@ h3{
 .filter{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
 }
@@ -149,6 +152,7 @@ h3{
     border: var(--dark-stroke-style);
     font-size: 20px;
     color: var(--white_color);
+    margin: 10px 5px 0 5px;
 }
 
 #list{
@@ -185,4 +189,144 @@ h3{
     padding: 12.5px;
     right: 40px;
     bottom: 40px;
+}
+
+@media screen and (width < 1300px){
+    h1{
+        font-size: 54px;
+    }
+    .wrapper>p, #place_for_text>p, .filter-button{
+        font-size: 18px;
+    }
+    .filter-button{
+        padding: 10px 20px;
+        margin: 8px 4px 0 4px;
+    }
+    .choise-item{
+        font-size: 32px;
+    }
+    #place_for_text>h3 {
+        font-size: 30px;
+    }
+    .filter{
+        margin: 0;
+    }   
+    .text-vuz-box>h3{
+        font-size: 22px;
+    } 
+    .text-vuz-box>p:last-child{
+        font-size: 18px;
+    }
+    .text-vuz-box>p:first-child{
+        font-size: 14px;
+    }
+    .arrow-up{
+        transform: scale(.9);
+    }
+}
+
+@media screen and (width < 772px) {
+    .vuz-block{
+        grid-template-columns: 200px auto;
+    }
+
+    .text-vuz-box>p:last-child{
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+@media screen and (width <= 768px) {
+    .wrapper>p, #place_for_text>p, .filter-button{
+        font-size: 16px;
+    }
+    .filter-button{
+        padding: 10px 20px;
+        margin: 7px 3px 0 3px;
+    }
+    h1{
+        font-size: 48px;
+    }
+    .choise-item{
+        font-size: 28px;
+    }
+    #place_for_text>h3 {
+        font-size: 26px;
+    }
+    .text-vuz-box>h3{
+        font-size: 20px;
+        max-width: 150px;
+    } 
+    .text-vuz-box>p:last-child{
+        font-size: 16px;
+    }
+    .text-vuz-box>p:first-child{
+        font-size: 12px;
+    }
+    .arrow-up{
+        transform: scale(.8);
+    }
+}
+
+@media screen and (width < 644px) {
+    .wrapper>p, #place_for_text>p, .filter-button{
+        font-size: 14px;
+    }
+    .filter-button{
+        padding: 7px 14px;
+        margin: 6px 3px 0 3px;
+    }
+    h1{
+        font-size: 42px;
+    }
+    .choise-item{
+        font-size: 24px;
+    }
+    #place_for_text>h3 {
+        font-size: 22px;
+    }
+    .text-vuz-box>h3{
+        font-size: 18px;
+    } 
+    .text-vuz-box>p:last-child{
+        font-size: 14px;
+    }
+    .text-vuz-box>p:first-child{
+        font-size: 10px;
+    }
+    .arrow-up{
+        transform: scale(.7);
+    }
+}
+
+@media screen and (width < 565px) {
+    .vuz-block{
+        display: flex;
+        flex-direction: column-reverse;
+        row-gap: 15px;
+    }
+    .img-vuz-box{
+        max-width: 100%;
+    }
+}
+
+@media screen and (width < 457px) {
+    .wrapper>p, #place_for_text>p, .filter-button{
+        font-size: 14px;
+    }
+    .filter-button{
+        padding: 7px 14px;
+        margin: 6px 3px 0 3px;
+    }
+    h1{
+        font-size: 40px;
+    }
+    .text-vuz-box>h3{
+        font-size: 16px;
+    } 
+    .text-vuz-box>p:last-child{
+        font-size: 13px;
+    }
+    .text-vuz-box>p:first-child{
+        font-size: 10px;
+    }
 }
