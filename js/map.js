@@ -151,9 +151,6 @@ function adaptive(){
         document.getElementById('list').style.height = `${hei}px`;
         document.getElementsByClassName('change-box')[0].style.height = `${hei}px`;
         document.getElementsByClassName('filter')[0].style.maxWidth = `${win - 30}px`;
-        // Array.from(document.getElementsByClassName('filter-button')).forEach(filter => {
-        //     filter.style.transform = `scale(${(win - 30)/1240})`;
-        // });
         Array.from(document.getElementsByClassName('vuz-block')).forEach(filter => {
                 filter.style.width = `${(win - 30)}px`;
         });
